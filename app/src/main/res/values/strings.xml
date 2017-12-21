@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">DiaBeatDis_android</string>
+    <string name="enter_id">(identifier)</string>
+    <string name="button_enter_id">Enter</string>
+    <string name="button_new_user">New User</string>
 </resources>
