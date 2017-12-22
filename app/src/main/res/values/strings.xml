@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">DiaBeatDis_android</string>
-    <string name="enter_id">(identifier)</string>
+    <string name="hint_identifier">(Identifier)</string>
     <string name="button_enter_id">Enter</string>
     <string name="button_new_user">New User</string>
+    <string name="button_back">Back</string>
+    <string name="button_doctor">Doctor</string>
+    <string name="button_admin">Admin</string>
+    <string name="button_health_worker">Health Worker</string>
+    <string name="hint_password">(Password)</string>
+    <string name="hint_mobile_number">(Mobile Number)</string>
+    <string name="string_i_am_a">I am a:</string>
+    <string name="string_enter_id">Enter ID:</string>
+    <string name="string_enter_password">Enter Password:</string>
+    <string name="string_enter_mobile_phone">Enter Mobile Phone:</string>
 </resources>
