@@ -36,6 +36,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** Called when the user taps the enter button, it then reads in user_account.txt internal
+     * storage file, adds the user input information and stores away all the user_information in
+     * JSONarray format*/
     public void registerNewUser(View view) {
         String FILENAME = "user_accounts.txt";
         EditText editText1 = findViewById(R.id.editText_user_reg_ID);     // collect user input id, pass word, and phone number
@@ -56,13 +59,14 @@ public class UserRegistrationActivity extends AppCompatActivity {
         } catch (JSONException e) {
             Log.e("convert",e.getMessage());
         }
-        existingUsers.put(userData);
-        writeToFile(FILENAME, existingUsers.toString());
+        existingUsers.put(userData);                                      // combine the old user data with new user data
+        writeToFile(FILENAME, existingUsers.toString());                  // save all the user data away
         String dataOut = readFromFile(FILENAME);
         Log.d("success: ", dataOut);
         System.out.print(dataOut);
     }
 
+    /** helper function to write string data into a txt file*/
     private void writeToFile(String file, String data) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(file, Context.MODE_PRIVATE));
@@ -74,6 +78,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    /** helper function to read string data into a txt file*/
     private String readFromFile(String file) {
 
         String ret = "";
