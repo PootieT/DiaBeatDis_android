@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.EditText;
 
 import org.json.JSONArray;
@@ -47,9 +49,17 @@ public class UserRegistrationActivity extends AppCompatActivity {
         String password = editText2.getText().toString();
         EditText editText3 = findViewById(R.id.editText_user_reg_phone);
         String phone = editText3.getText().toString();
+        CheckBox box1 = findViewById(R.id.checkBox_user_reg_health_worker); // see what checkbox did user check off
+        Boolean ifHealthWorker = box1.isChecked();
+        CheckBox box2 = findViewById(R.id.checkBox_user_reg_doctor);
+        Boolean ifDoctor = box2.isChecked();
+        CheckBox box3 = findViewById(R.id.checkBox_user_reg_admin);
+        Boolean ifAdmin = box3.isChecked();
+        String userType = ifHealthWorker? "health_worker": ifDoctor? "doctor": ifAdmin? "admin": "health_worker"; // if none selected, default to health worker
+
         JSONObject userData = new JSONObject();                           // combine and convert them into JSON data format
         try {
-            userData = new JSONObject("{\"UserID\":"+userID+",\"Password\":"+password+",\"MobilePhone\":" + phone + "}");
+            userData = new JSONObject("{\"UserID\":"+userID+",\"Password\":"+password+",\"MobilePhone\":" + phone + ",\"UserType\":"+userType+ "}");
         } catch (JSONException e) {
             userData = new JSONObject();
         }
