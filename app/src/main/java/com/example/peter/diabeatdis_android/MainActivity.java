@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
             if (userType.equals("")){
                 textView.setText("No Existing user with the ID entered, please register as a new user");   //print no existing user
             } else if (userType.equals("health_worker")){
-                System.out.println("going to health worker activity");       //take to healthworker site
+                Intent intent = new Intent(this, HealthWorkerMainActivity.class);      //take to healthworker site
+                startActivity(intent);
             } else if (userType.equals("doctor")){
                 System.out.println("going to doctor activity");              //take to doctor site
             } else if (userType.equals("admin")){

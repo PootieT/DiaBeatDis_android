@@ -16,7 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserRegistrationActivity"></activity>
+        <activity android:name=".UserRegistrationActivity" />
+        <activity android:name=".HealthWorkerMainActivity" />
+        <activity android:name=".DoctorMainActivity" />
+        <activity android:name=".AdminMainActivity"></activity>
     </application>
 
 </manifest>

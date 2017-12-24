@@ -13,4 +13,18 @@
     <string name="string_enter_id">Enter ID:</string>
     <string name="string_enter_password">Enter Password:</string>
     <string name="string_enter_mobile_phone">Enter Mobile Phone:</string>
+    <string name="button_enter_patient_data">Enter Patient Data</string>
+    <string name="button_calibrate_device">Calibrate Device</string>
+    <string name="button_message_to_doctor">Message To Doctor</string>
+    <string name="button_logout">Logout</string>
+    <string name="button_view_messages">View Messages</string>
+    <string name="button_user_summaries">User Summaries</string>
+    <string name="button_download_data">Download Data</string>
+    <string name="button_user_lookup">User Lookup</string>
+    <string name="button_device_settings">Device Settings</string>
+    <string name="button_patient_summary">Patient Summary</string>
+    <string name="button_patient_lookup">Patient Lookup</string>
+    <string name="button_reset_system">Reset System</string>
+    <string name="button_device_statistics">Device Statistics</string>
+    <string name="button_manage_accounts">Manage Accounts</string>
 </resources>
