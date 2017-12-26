@@ -27,4 +27,22 @@
     <string name="button_reset_system">Reset System</string>
     <string name="button_device_statistics">Device Statistics</string>
     <string name="button_manage_accounts">Manage Accounts</string>
+    <string name="button_new_patient">New Patient</string>
+    <string name="string_enter_patient_id">Enter Patient ID:</string>
+    <string name="button_glucose_test">Glucose Test</string>
+    <string name="button_waist_circumference">Waist Circumference</string>
+    <string name="button_change_patient">Change Patient</string>
+    <string name="button_main_menu">Main Menu</string>
+    <string name="string_risk_catagories">Risk Catagories:</string>
+    <string name="string_sex">Sex:</string>
+    <string name="string_age">Age:</string>
+    <string name="string_location">Location:</string>
+    <string name="check_diabetic">Diabetic</string>
+    <string name="check_at_risk">At risk</string>
+    <string name="check_not_at_risk">Not at risk</string>
+    <string name="check_unknown">Unknown</string>
+    <string name="check_male">Male</string>
+    <string name="check_female">Female</string>
+    <string name="string_min">Min:</string>
+    <string name="string_max">Max:</string>
 </resources>

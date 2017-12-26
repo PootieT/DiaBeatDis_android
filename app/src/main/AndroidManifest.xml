@@ -19,7 +19,10 @@
         <activity android:name=".UserRegistrationActivity" />
         <activity android:name=".HealthWorkerMainActivity" />
         <activity android:name=".DoctorMainActivity" />
-        <activity android:name=".AdminMainActivity"></activity>
+        <activity android:name=".AdminMainActivity" />
+        <activity android:name=".PatientSelectorActivity" />
+        <activity android:name=".DataEntrySelectorActivity" />
+        <activity android:name=".PatientLookupActivity"></activity>
     </application>
 
 </manifest>
