@@ -22,7 +22,11 @@
         <activity android:name=".AdminMainActivity" />
         <activity android:name=".PatientSelectorActivity" />
         <activity android:name=".DataEntrySelectorActivity" />
-        <activity android:name=".PatientLookupActivity"></activity>
+        <activity android:name=".PatientLookupActivity" />
+        <activity android:name=".UserLookupActivity" />
+        <activity android:name=".DeviceSettingActivity" />
+        <activity android:name=".PatientRegistrationActivity" />
+        <activity android:name=".MessageDoctorActivity"></activity>
     </application>
 
 </manifest>

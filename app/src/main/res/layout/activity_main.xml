@@ -42,7 +42,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:onClick="userSignIn"
-        android:text="@string/button_enter_id"
+        android:text="@string/button_enter"
         app:layout_constraintBaseline_toBaselineOf="@+id/editText_log_in_ID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

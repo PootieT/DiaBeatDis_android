@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:onClick="enterPatientData"
         android:text="@string/button_enter_patient_data"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,10 +32,11 @@
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="106dp"
-        android:layout_height="56dp"
+        android:layout_width="160dp"
+        android:layout_height="38dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="messageDoctor"
         android:text="@string/button_message_to_doctor"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toStartOf="@+id/button8"
@@ -43,9 +45,10 @@
     <Button
         android:id="@+id/button8"
         android:layout_width="92dp"
-        android:layout_height="56dp"
+        android:layout_height="38dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="logOut"
         android:text="@string/button_logout"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"

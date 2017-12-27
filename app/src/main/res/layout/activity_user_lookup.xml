@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.peter.diabeatdis_android.UserLookupActivity">
+
+    <ScrollView
+        android:layout_width="571dp"
+        android:layout_height="141dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView2"
+        style="@android:style/Widget.Holo.AutoCompleteTextView"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintStart_toStartOf="@+id/textView17"
+        tools:layout_editor_absoluteY="106dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox11"
+        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
+        android:layout_width="125dp"
+        android:layout_height="18dp"
+        android:text="@string/check_proficient"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        tools:layout_editor_absoluteY="106dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox12"
+        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
+        android:layout_width="125dp"
+        android:layout_height="18dp"
+        android:text="@string/check_limited"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        tools:layout_editor_absoluteY="124dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox13"
+        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
+        android:layout_width="125dp"
+        android:layout_height="18dp"
+        android:text="@string/check_none"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        tools:layout_editor_absoluteY="142dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox7"
+        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
+        android:layout_width="125dp"
+        android:layout_height="18dp"
+        android:text="@string/check_health_worker"
+        app:layout_constraintStart_toStartOf="@+id/textView18"
+        tools:layout_editor_absoluteY="106dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox8"
+        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
+        android:layout_width="125dp"
+        android:layout_height="18dp"
+        android:text="@string/check_doctor"
+        app:layout_constraintStart_toStartOf="@+id/textView18"
+        tools:layout_editor_absoluteY="124dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox9"
+        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
+        android:layout_width="125dp"
+        android:layout_height="18dp"
+        android:text="@string/check_admin"
+        app:layout_constraintStart_toStartOf="@+id/textView18"
+        tools:layout_editor_absoluteY="142dp" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_training_level"
+        app:layout_constraintEnd_toStartOf="@+id/textView17"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_type"
+        app:layout_constraintEnd_toStartOf="@+id/textView14"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/string_enter_user_id"
+        app:layout_constraintBottom_toTopOf="@+id/editText3"
+        app:layout_constraintEnd_toEndOf="@+id/editText3"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/editText3" />
+
+    <EditText
+        android:id="@+id/editText3"
+        style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
+        android:layout_width="221dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/hint_identifier"
+        android:inputType="textPersonName"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button40" />
+
+    <Button
+        android:id="@+id/button40"
+        android:layout_width="106dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/button_main_menu"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toStartOf="@+id/button41"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button41"
+        android:layout_width="92dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/button_logout"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

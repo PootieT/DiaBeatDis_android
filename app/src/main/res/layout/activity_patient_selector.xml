@@ -9,9 +9,10 @@
     <Button
         android:id="@+id/button23"
         android:layout_width="92dp"
-        android:layout_height="56dp"
+        android:layout_height="38dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="logOut"
         android:text="@string/button_logout"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,10 +20,11 @@
 
     <Button
         android:id="@+id/button24"
-        android:layout_width="106dp"
-        android:layout_height="56dp"
+        android:layout_width="160dp"
+        android:layout_height="38dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="messageDoctor"
         android:text="@string/button_message_to_doctor"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toStartOf="@+id/button23"
@@ -33,6 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:onClick="newPatientRegistration"
         android:text="@string/button_new_patient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +60,7 @@
         android:layout_height="46dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/button_enter_id"
+        android:text="@string/button_enter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
