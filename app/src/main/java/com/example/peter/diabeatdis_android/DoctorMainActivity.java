@@ -1,7 +1,9 @@
 package com.example.peter.diabeatdis_android;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class DoctorMainActivity extends AppCompatActivity {
 
@@ -10,4 +12,35 @@ public class DoctorMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_main);
     }
+
+    /** Called when the user taps the enter patient data button */
+    public void enterPatientData(View view) {
+        Intent intent = new Intent(this, PatientSelectorActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the log out button */
+    public void logOut(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the patient lookup button */
+    public void lookupPatient(View view) {
+        Intent intent = new Intent(this, PatientLookupActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the device setting button */
+    public void deviceSetting(View view) {
+        Intent intent = new Intent(this, DeviceSettingActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the user lookup button */
+    public void userLookup(View view) {
+        Intent intent = new Intent(this, UserLookupActivity.class);
+        startActivity(intent);
+    }
+
 }
