@@ -85,4 +85,10 @@
     <string name="button_emergency_contact_doctor">Emergency - Contact Doctor</string>
     <string name="string_record">Record</string>
     <string name="string_photo">Photo</string>
+    <string name="button_search">Search</string>
+    <string name="prompt_and_or">And/Or</string>
+    <string-array name="and_or">
+        <item>And</item>
+        <item>Or</item>
+    </string-array>
 </resources>

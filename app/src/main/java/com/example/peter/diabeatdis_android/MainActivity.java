@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         String userType = "";
         Boolean passwordCorrect = Boolean.TRUE;
         for (int i = 0; i < existingUsers.length(); i++) {              // loop through all user to see if there is exisiting user ID, if yes, check if passowrd is correct
-            Log.d("output", existingUsers.optJSONObject(i).optString("UserID").equals(userID)? "True":"False");
+//            Log.d("output", existingUsers.optJSONObject(i).optString("UserID").equals(userID)? "True":"False");
             if (existingUsers.optJSONObject(i).optString("UserID").equals(userID)){
                 if(existingUsers.optJSONObject(i).optString("Password").equals(password)){
                     userType = existingUsers.optJSONObject(i).optString("UserType");
