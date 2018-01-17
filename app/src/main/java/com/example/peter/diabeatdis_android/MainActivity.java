@@ -68,9 +68,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, HealthWorkerMainActivity.class);      //take to healthworker site
                 startActivity(intent);
             } else if (userType.equals("doctor")){
-                System.out.println("going to doctor activity");              //take to doctor site
+                Intent intent = new Intent(this, DoctorMainActivity.class);      //take to doctor site
+                startActivity(intent);
             } else if (userType.equals("admin")){
-                System.out.println("going to admin activity");               //take to admin site
+                Intent intent = new Intent(this, AdminMainActivity.class);      //take to amin site
+                startActivity(intent);
             }
         } else {
             textView.setText("Please try again with the correct password!");                               // ehhhh, wrong password

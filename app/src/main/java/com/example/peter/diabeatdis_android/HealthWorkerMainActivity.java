@@ -27,7 +27,8 @@ public class HealthWorkerMainActivity extends AppCompatActivity {
 
     /** Called when the user taps the enter patient data button */
     public void enterPatientData(View view) {
-        Intent intent = new Intent(this, PatientSelectorActivity.class);
+//        Intent intent = new Intent(this, PatientSelectorActivity.class);
+        Intent intent = new Intent(this, DataCollectionActivity.class);
         startActivity(intent);
     }
 }

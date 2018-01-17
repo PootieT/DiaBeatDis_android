@@ -26,7 +26,8 @@
         <activity android:name=".UserLookupActivity" />
         <activity android:name=".DeviceSettingActivity" />
         <activity android:name=".PatientRegistrationActivity" />
-        <activity android:name=".MessageDoctorActivity"></activity>
+        <activity android:name=".MessageDoctorActivity" />
+        <activity android:name=".DataCollectionActivity"></activity>
     </application>
 
 </manifest>
