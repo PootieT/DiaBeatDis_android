@@ -91,4 +91,5 @@
         <item>And</item>
         <item>Or</item>
     </string-array>
+    <string name="button_show_voltage">Show Voltage</string>
 </resources>

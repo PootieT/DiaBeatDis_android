@@ -74,6 +74,17 @@ public class UserRegistrationActivity extends AppCompatActivity {
         String dataOut = readFromFile(FILENAME);
         Log.d("success: ", dataOut);
         System.out.print(dataOut);
+
+        if (userType == "health_worker") {
+            Intent intent = new Intent(this, HealthWorkerMainActivity.class);
+            startActivity(intent);
+        } else if (userType == "doctor"){
+            Intent intent = new Intent(this, DoctorMainActivity.class);
+            startActivity(intent);
+        } else if (userType == "admin"){
+            Intent intent = new Intent(this, AdminMainActivity.class);
+            startActivity(intent);
+        }
     }
 
     /** helper function to write string data into a txt file*/

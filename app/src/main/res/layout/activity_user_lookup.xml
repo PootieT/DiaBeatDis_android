@@ -47,7 +47,7 @@
         android:layout_width="125dp"
         android:layout_height="18dp"
         android:text="@string/check_limited"
-        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintStart_toStartOf="@+id/checkBox_user_lookup_if_proficient"
         app:layout_constraintTop_toBottomOf="@+id/checkBox_user_lookup_if_proficient" />
 
     <CheckBox
@@ -56,7 +56,7 @@
         android:layout_width="125dp"
         android:layout_height="18dp"
         android:text="@string/check_none"
-        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintStart_toStartOf="@+id/checkBox_user_lookup_if_limited"
         app:layout_constraintTop_toBottomOf="@+id/checkBox_user_lookup_if_limited" />
 
     <CheckBox
@@ -74,7 +74,7 @@
         android:layout_width="125dp"
         android:layout_height="18dp"
         android:text="@string/check_doctor"
-        app:layout_constraintStart_toStartOf="@+id/textView18"
+        app:layout_constraintStart_toStartOf="@+id/checkBox_user_lookup_if_health_worker"
         app:layout_constraintTop_toBottomOf="@+id/checkBox_user_lookup_if_health_worker" />
 
     <CheckBox
@@ -83,7 +83,7 @@
         android:layout_width="125dp"
         android:layout_height="18dp"
         android:text="@string/check_admin"
-        app:layout_constraintStart_toStartOf="@+id/textView18"
+        app:layout_constraintStart_toStartOf="@+id/checkBox_user_lookup_if_doctor"
         app:layout_constraintTop_toBottomOf="@+id/checkBox_user_lookup_if_doctor" />
 
     <TextView
