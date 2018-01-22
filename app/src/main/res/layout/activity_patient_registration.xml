@@ -7,41 +7,41 @@
     tools:context="com.example.peter.diabeatdis_android.PatientRegistrationActivity">
 
     <CheckBox
-        android:id="@+id/checkBox25"
+        android:id="@+id/checkBox_patient_reg_if_at_risk"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
         android:layout_height="18dp"
         android:text="@string/check_at_risk"
         app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox28" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_patient_reg_if_diabetic" />
 
     <CheckBox
-        android:id="@+id/checkBox29"
+        android:id="@+id/checkBox_patient_reg_if_no_risk"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
         android:layout_height="18dp"
         android:text="@string/check_not_at_risk"
         app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox25" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_patient_reg_if_at_risk" />
 
     <CheckBox
-        android:id="@+id/checkBox30"
+        android:id="@+id/checkBox_patient_reg_if_unknown_risk"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
         android:layout_height="18dp"
         android:text="@string/check_unknown"
         app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox29" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_patient_reg_if_no_risk" />
 
     <CheckBox
-        android:id="@+id/checkBox28"
+        android:id="@+id/checkBox_patient_reg_if_diabetic"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
         android:layout_height="18dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="60dp"
         android:text="@string/check_diabetic"
         app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/editText11" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_patient_reg_sex" />
 
     <TextView
         android:id="@+id/textView25"
@@ -49,7 +49,7 @@
         android:layout_height="19dp"
         android:text="@string/string_age"
         app:layout_constraintBaseline_toBaselineOf="@+id/editText5"
-        app:layout_constraintEnd_toStartOf="@+id/editText4"
+        app:layout_constraintEnd_toStartOf="@+id/editText_patient_reg_age"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/editText5" />
 
@@ -130,11 +130,12 @@
         android:id="@+id/button46"
         android:layout_width="92dp"
         android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="registerNewPatient"
         android:text="@string/button_enter"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBottom_toBottomOf="@+id/button48"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button48" />
 
     <Button
@@ -150,7 +151,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText9" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_patient_reg_mobile" />
 
     <Button
         android:id="@+id/button47"
@@ -165,7 +166,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/editText_patient_reg_age"
         style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
         android:layout_width="98dp"
         android:layout_height="40dp"
@@ -194,7 +195,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView22" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/editText_patient_reg_id"
         style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -209,7 +210,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView22" />
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/editText_patient_reg_name"
         style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -218,11 +219,11 @@
         android:inputType="textPersonName"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView21"
-        app:layout_constraintEnd_toEndOf="@+id/editText6"
-        app:layout_constraintStart_toStartOf="@+id/editText6" />
+        app:layout_constraintEnd_toEndOf="@+id/editText_patient_reg_id"
+        app:layout_constraintStart_toStartOf="@+id/editText_patient_reg_id" />
 
     <EditText
-        android:id="@+id/editText8"
+        android:id="@+id/editText_patient_reg_location"
         style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -231,11 +232,11 @@
         android:inputType="textPersonName"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView23"
-        app:layout_constraintEnd_toEndOf="@+id/editText7"
-        app:layout_constraintStart_toStartOf="@+id/editText7" />
+        app:layout_constraintEnd_toEndOf="@+id/editText_patient_reg_name"
+        app:layout_constraintStart_toStartOf="@+id/editText_patient_reg_name" />
 
     <EditText
-        android:id="@+id/editText9"
+        android:id="@+id/editText_patient_reg_mobile"
         style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -245,11 +246,11 @@
         android:inputType="textPersonName"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView24"
-        app:layout_constraintEnd_toEndOf="@+id/editText8"
+        app:layout_constraintEnd_toEndOf="@+id/editText_patient_reg_location"
         app:layout_constraintStart_toEndOf="@+id/textView24" />
 
     <EditText
-        android:id="@+id/editText11"
+        android:id="@+id/editText_patient_reg_sex"
         style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -258,6 +259,18 @@
         android:inputType="textPersonName"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView28"
-        app:layout_constraintEnd_toEndOf="@+id/editText4"
+        app:layout_constraintEnd_toEndOf="@+id/editText_patient_reg_age"
         app:layout_constraintStart_toEndOf="@+id/textView28" />
+
+    <TextView
+        android:id="@+id/textView_patient_reg_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_patient_reg_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
