@@ -8,20 +8,28 @@ import android.media.AudioTrack;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.logging.Logger;
+
 public class DataCollectionActivity extends AppCompatActivity {
+
+    private Audio audio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collection);
+        audio = new Audio();
     }
 
     /** display the voltage inputted into the tablet with click of button */
     public void showVoltage(View view) {
         // do something to read the voltage
+        Log.d("voltage","button clicked");
+        audio.run();
     }
 
     private static final int counts[] = {
@@ -132,6 +140,7 @@ public class DataCollectionActivity extends AppCompatActivity {
             int size = AudioRecord.getMinBufferSize(sample,
                             AudioFormat.CHANNEL_IN_MONO,
                             AudioFormat.ENCODING_PCM_16BIT);
+            Log.d("voltage","got buffer size" + size);
             // Give up if it doesn't work
             if (size == AudioRecord.ERROR_BAD_VALUE || size == AudioRecord.ERROR || size <= 0){
                 runOnUiThread(new Runnable(){
@@ -191,7 +200,7 @@ public class DataCollectionActivity extends AppCompatActivity {
 
             // Start recording
             audioRecord.startRecording();
-
+            Log.d("voltage","start audio recording and thread is "+thread);
             int index = 0;
             int count = 0;
 
@@ -200,11 +209,12 @@ public class DataCollectionActivity extends AppCompatActivity {
 
             // Continue until he thread is stopped
             while (thread != null) {
-                // Read a buffer of data
-                size = audioRecord.read(buffer, 0, FRAMES);
+                System.out.print("in main loop");
+                size = audioRecord.read(buffer, 0, FRAMES);   // Read a buffer of data
 
                 // Stop the thread if no data or error state
                 if (size <= 0) {
+                    Log.d("voltage","there is no data or error state");
                     thread = null;
                     break;
                 }
