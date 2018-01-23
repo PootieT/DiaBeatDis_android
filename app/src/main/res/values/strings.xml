@@ -92,4 +92,11 @@
         <item>Or</item>
     </string-array>
     <string name="button_show_voltage">Show Voltage</string>
+    <string name="button_test_again">Test Again</string>
+    <string name="button_enter_other_data">Enter Other Data</string>
+    <string name="string_test_error">Something went wrong.</string>
+    <string name="button_contact_doctor">Contact Doctor</string>
+    <string name="string_emergency_message">The patient has very high blood glucose! You need to contact the doctor to determine best course of action!</string>
+    <string name="string_re_enter_password">Re-Enter Password:</string>
+    <string name="string_download_data_using">Download data through:</string>
 </resources>

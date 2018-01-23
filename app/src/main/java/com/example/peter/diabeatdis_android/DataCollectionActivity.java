@@ -1,6 +1,7 @@
 package com.example.peter.diabeatdis_android;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
@@ -23,6 +24,24 @@ public class DataCollectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collection);
         audio = new Audio();
+    }
+
+    /** Called when the user taps the log out button */
+    public void logOut(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the message to doctor button */
+    public void messageDoctor(View view) {
+        Intent intent = new Intent(this, MessageDoctorActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the change patient button */
+    public void changePatient(View view) {
+        Intent intent = new Intent(this, PatientSelectorActivity.class);
+        startActivity(intent);
     }
 
     /** display the voltage inputted into the tablet with click of button */

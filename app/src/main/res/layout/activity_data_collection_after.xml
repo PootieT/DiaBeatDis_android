@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.peter.diabeatdis_android.DataCollectionActivity">
+    tools:context="com.example.peter.diabeatdis_android.DataCollectionSuccessActivity">
 
     <Button
-        android:id="@+id/button53"
+        android:id="@+id/button59"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/button_enter_other_data"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button60"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/button_test_again"
+        app:layout_constraintBottom_toTopOf="@+id/button59"
+        app:layout_constraintEnd_toEndOf="@+id/button59"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/button59" />
+
+    <Button
+        android:id="@+id/button57"
         android:layout_width="160dp"
         android:layout_height="38dp"
         android:layout_marginEnd="8dp"
@@ -16,11 +38,11 @@
         android:onClick="messageDoctor"
         android:text="@string/button_message_to_doctor"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintEnd_toStartOf="@+id/button50"
+        app:layout_constraintEnd_toStartOf="@+id/button56"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button50"
+        android:id="@+id/button56"
         android:layout_width="92dp"
         android:layout_height="38dp"
         android:layout_marginEnd="8dp"
@@ -32,7 +54,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button49"
+        android:id="@+id/button55"
         android:layout_width="120dp"
         android:layout_height="38dp"
         android:layout_marginStart="120dp"
@@ -43,29 +65,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_data_collection_show_voltage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:onClick="showVoltage"
-        android:text="@string/button_show_voltage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:id="@+id/textView_data_collection_show_voltage"
+        android:id="@+id/textView32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/button_data_collection_show_voltage"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="@+id/button_data_collection_show_voltage"
-        app:layout_constraintTop_toBottomOf="@+id/button_data_collection_show_voltage" />
+        android:text="@string/string_test_error"
+        app:layout_constraintBottom_toTopOf="@+id/button60"
+        app:layout_constraintEnd_toEndOf="@+id/button59"
+        app:layout_constraintStart_toStartOf="@+id/button59" />
 </android.support.constraint.ConstraintLayout>
-
