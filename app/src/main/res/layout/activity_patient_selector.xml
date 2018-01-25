@@ -39,10 +39,10 @@
         android:text="@string/button_new_patient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_patient_select_id" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editText_patient_select_id"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
@@ -60,17 +60,18 @@
         android:layout_height="46dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
+        android:onClick="searchPatient"
         android:text="@string/button_enter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView_patient_select_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_enter_patient_id"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/editText_patient_select_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
