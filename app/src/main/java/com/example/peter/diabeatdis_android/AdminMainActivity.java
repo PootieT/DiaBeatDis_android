@@ -22,12 +22,14 @@ public class AdminMainActivity extends AppCompatActivity {
     /** Called when the user taps the device setting button */
     public void deviceSetting(View view) {
         Intent intent = new Intent(this, DeviceSettingActivity.class);
+        intent.putExtra("caller", "AdminMainActivity");
         startActivity(intent);
     }
 
     /** Called when the user taps the user lookup button */
     public void userLookup(View view) {
         Intent intent = new Intent(this, UserLookupActivity.class);
+        intent.putExtra("caller", "AdminMainActivity");
         startActivity(intent);
     }
 }

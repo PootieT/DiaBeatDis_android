@@ -1,11 +1,15 @@
 package com.example.peter.diabeatdis_android;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
+import android.media.MediaRecorder;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,17 +17,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
-public class DataCollectionActivity extends AppCompatActivity {
 
-    private Audio audio;
+import static java.lang.Math.abs;
+
+public class DataCollectionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collection);
-        audio = new Audio();
     }
 
     /** Called when the user taps the log out button */
@@ -48,260 +54,94 @@ public class DataCollectionActivity extends AppCompatActivity {
     public void showVoltage(View view) {
         // do something to read the voltage
         Log.d("voltage","button clicked");
-        audio.run();
+        recordAudio();
     }
 
-    private static final int counts[] = {
-        256, 512, 1024, 2048,
-        4096, 8192, 16384, 32768,
-        65536, 131072, 262144, 524288
-        };
+    final int SAMPLE_RATE = 8000;// there are some results! i don't know what
+//    final int SAMPLE_RATE = 11025; // works! respond to my voice
+//    final int SAMPLE_RATE = 22050; // nope doesnt work
+//    final int SAMPLE_RATE = 44100; // this actually doesnt work
+    boolean mShouldContinue; // Indicates if recording / playback should stop
 
-    // Show alert
-    void showAlert(int appName, int errorBuffer) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this); // Create an alert dialog builder
-        builder.setTitle(appName);                    // Set the title, message and button
-        builder.setMessage(errorBuffer);
-        builder.setNeutralButton(android.R.string.ok,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog,int which) {
-                        dialog.dismiss(); // Dismiss dialog
-                    }
-                });
-        AlertDialog dialog = builder.create();        // Create the dialog
-        dialog.show();                                // Show it
-    }
+    void recordAudio() {
+        //check for permission
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M  &&     checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
 
-    protected class Audio implements Runnable
-    {
-        // Preferences
-        protected boolean bright;
-        protected boolean single;
-        protected boolean trigger;
-
-        protected int input;
-        protected int sample;
-
-        // Data
-        protected Thread thread;
-        protected short data[];
-        protected long length;
-
-        // Private data
-        private static final int SAMPLES = 524288;
-        private static final int FRAMES = 4096;
-
-        private static final int INIT  = 0;
-        private static final int FIRST = 1;
-        private static final int NEXT  = 2;
-        private static final int LAST  = 3;
-
-        private AudioRecord audioRecord;
-        private short buffer[];
-
-        // Constructor
-        protected Audio()
-        {
-            buffer = new short[FRAMES];
-            data = new short[SAMPLES];
+            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO},1);
         }
 
-        // Start audio
-        protected void start()
-        {
-            // Start the thread
-            thread = new Thread(this, "Audio");
-            thread.start();
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
 
-        // Run
-        @Override
-        public void run()
-        {
-            processAudio();
-        }
+                // buffer size in bytes
+                int bufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE,
+                        AudioFormat.CHANNEL_IN_MONO,         // in mono guarenteed to work on device
+                        AudioFormat.ENCODING_PCM_16BIT);
 
-        // Stop
-        protected void stop() {
-            // Stop and release the audio recorder
-            cleanUpAudioRecord();
-
-            Thread t = thread;
-            thread = null;
-
-            // Wait for the thread to exit
-            while (t != null && t.isAlive())
-                Thread.yield();
-        }
-
-        // Stop and release the audio recorder
-        private void cleanUpAudioRecord() {
-            if (audioRecord != null && audioRecord.getState() == AudioRecord.STATE_INITIALIZED){
-                try {
-                    if (audioRecord.getRecordingState() ==
-                            AudioRecord.RECORDSTATE_RECORDING)
-                        audioRecord.stop();
-
-                    audioRecord.release();
-                } catch (Exception e) {}
-            }
-        }
-
-        // Process Audio
-        protected void processAudio()
-        {
-            // Assume the output sample rate will work on the input as
-            // there isn't an AudioRecord.getNativeInputSampleRate()
-            sample = AudioTrack.getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
-
-            // Get buffer size
-            int size = AudioRecord.getMinBufferSize(sample,
-                            AudioFormat.CHANNEL_IN_MONO,
-                            AudioFormat.ENCODING_PCM_16BIT);
-            Log.d("voltage","got buffer size" + size);
-            // Give up if it doesn't work
-            if (size == AudioRecord.ERROR_BAD_VALUE || size == AudioRecord.ERROR || size <= 0){
-                runOnUiThread(new Runnable(){
-                    @Override
-                    public void run(){
-                        showAlert(R.string.app_name, 1);
-                    }
-                });
-                thread = null;
-                return;
-            }
-
-            // Create the AudioRecord object
-            try {audioRecord = new AudioRecord(input, sample,
-                                AudioFormat.CHANNEL_IN_MONO,
-                                AudioFormat.ENCODING_PCM_16BIT,
-                                size);
-            } catch (Exception e) {                            // Exception
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showAlert(R.string.app_name, 2);
-                    }
-                });
-                thread = null;
-                return;
-            }
-
-            // Check audiorecord
-            if (audioRecord == null) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showAlert(R.string.app_name,2);
-                    }
-                });
-
-                thread = null;
-                return;
-            }
-
-            // Check state
-            int state = audioRecord.getState();
-
-            if (state != AudioRecord.STATE_INITIALIZED) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showAlert(R.string.app_name,2);
-                    }
-                });
-
-                audioRecord.release();
-                thread = null;
-                return;
-            }
-
-            // Start recording
-            audioRecord.startRecording();
-            Log.d("voltage","start audio recording and thread is "+thread);
-            int index = 0;
-            int count = 0;
-
-            state = INIT;
-            short last = 0;
-
-            // Continue until he thread is stopped
-            while (thread != null) {
-                System.out.print("in main loop");
-                size = audioRecord.read(buffer, 0, FRAMES);   // Read a buffer of data
-
-                // Stop the thread if no data or error state
-                if (size <= 0) {
-                    Log.d("voltage","there is no data or error state");
-                    thread = null;
-                    break;
+                if (bufferSize == AudioRecord.ERROR || bufferSize == AudioRecord.ERROR_BAD_VALUE) {
+                    bufferSize = SAMPLE_RATE * 2;
                 }
 
+                short[] audioBuffer = new short[bufferSize / 2];
+                List<Double> overallBuffer = new ArrayList<>();
+
+                AudioRecord record = new AudioRecord(
+//                        MediaRecorder.AudioSource.DEFAULT,
+                        MediaRecorder.AudioSource.MIC,
+                        SAMPLE_RATE,
+                        AudioFormat.CHANNEL_IN_MONO,
+                        AudioFormat.ENCODING_PCM_16BIT,
+                        bufferSize);
+
+                if (record.getState() != AudioRecord.STATE_INITIALIZED) {
+                    Log.e("Pootie", "Audio Record can't initialize!");
+                    return;
+                }
+                record.startRecording();
+
+                Log.v("Pootie", "Start recording");
+
+                long shortsRead = 0;
                 TextView textView = findViewById(R.id.textView_data_collection_show_voltage);
-                textView.setText(size);
-//                // State machine for sync and copying data to display buffer
-//                switch (state) {
-//                    // INIT: waiting for sync
-//                    case INIT:
-//                        index = 0;
-//                        if (bright) state++;
-//                        else {
-//                            if (single && !trigger) break;
-//                            float level = -yscale.index * scope.yscale; // Calculate sync level
-//                            int dx = 0;                                 // Initialise sync
-//                            if (level < 0) {                            // Sync polarity
-//                                for (int i = 0; i < size; i++) {
-//                                    dx = buffer[i] - last;
-//                                    if (dx < 0 && last > level && buffer[i] < level) {
-//                                        index = i;
-//                                        state++;
-//                                        break;
-//                                    }
-//                                    last = buffer[i];
-//                                }
-//                            } else {
-//                                for (int i = 0; i < size; i++) {
-//                                    dx = buffer[i] - last;
-//                                    if (dx > 0 && last < level && buffer[i] > level) {
-//                                        index = i;
-//                                        state++;
-//                                        break;
-//                                    }
-//                                    last = buffer[i];
-//                                }
-//                            }
-//                        }
-//                        if (state == INIT) break;                       // No sync, try next time
-//                        if (single && trigger) trigger = false;         // Reset trigger
-//                    case FIRST:                                       // FIRST: First chunk of data
-//                        count = counts[timebase];                     // Update count
-//                        length = count;
-//                        System.arraycopy(buffer, index, data, 0, size - index); // Copy data
-//                        index = size - index;
-//                        if (index >= count) state = INIT;     // If done, wait for sync again
-//                        else                                  // Else get some more data next time
-//                            state++;
-//                        break;
-//                    case NEXT:                                // NEXT: Subsequent chunks of data
-//                        System.arraycopy(buffer, 0, data, index, size); // Copy data
-//                        index += size;
-//                        if (index >= count) state = INIT;     // Done, wait for sync again
-//                        else if (index + size >= count) // Else if last but one chunk, get last chunk next time
-//                            state++;
-//                        break;
-//                    case LAST:                                // LAST: Last chunk of data
-//                        System.arraycopy(buffer, 0, data, index, count - index); // Copy data
-//                        state = INIT;                         // Wait for sync next time
-//                        break;
-//                }
+                mShouldContinue = true;
 
-//                // Update display
-//                scope.postInvalidate();
+                while (mShouldContinue) {
+                    int numberOfShort = record.read(audioBuffer, 0, audioBuffer.length);
+                    shortsRead += numberOfShort;
+//                    for (int i = 0;i<audioBuffer.length; i++) {
+//                        overallBuffer = overallBuffer.add(audioBuffer[i]);
+//                    }
+                    // Do something with the audioBuffer
+                    Log.d("Pootie","numberofshort is  "+numberOfShort);
+                    for (int i = 0;i<10; i++){
+                        Log.d("Pootie","audioBuffer is "+audioBuffer[i]);
+                    }
+                    double sum = 0.0;
+                    double max = 0.0;
+                    double min = 0.0;
+                    for (int i = 0;i<audioBuffer.length; i++){
+                        sum += audioBuffer[i];
+                        max = Math.max(max, audioBuffer[i]);
+                        min = Math.min(min, audioBuffer[i]);
+                    }
+                    Log.d("Pootie", "average voltage is" + sum/audioBuffer.length);
+                    Log.d("Pootie", "maximum voltage is" + max);
+                    Log.d("Pootie", "minimum voltage is" + min);
+//                    textView.setText((char)audioBuffer[0]);        // somehow this breaks the loop
+                    if (abs(shortsRead) > 10000){
+                        mShouldContinue = false;
+                    }
+                }
+
+
+                record.stop();
+                record.release();
+
+                Log.v("Pootie", String.format("Recording stopped. Samples read: %d", shortsRead));
             }
-
-            // Stop and release the audio recorder
-            cleanUpAudioRecord();
-        }
+        }).start();
     }
 }

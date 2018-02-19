@@ -67,5 +67,6 @@
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="@+id/button_data_collection_show_voltage"
         app:layout_constraintTop_toBottomOf="@+id/button_data_collection_show_voltage" />
+
 </android.support.constraint.ConstraintLayout>
 

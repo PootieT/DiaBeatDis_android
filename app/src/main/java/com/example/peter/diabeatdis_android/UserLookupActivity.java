@@ -1,10 +1,12 @@
 package com.example.peter.diabeatdis_android;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -30,51 +32,86 @@ public class UserLookupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_lookup);
+        TableLayout stk = findViewById(R.id.TableLayout_user_lookup_table);
+
+        //create table
+        TableRow row0 = new TableRow(this);
+        TextView tv0 = new TextView(this);
+        tv0.setText(" User ID ");
+        tv0.setTextColor(Color.BLACK);
+        row0.addView(tv0);
+        TextView tv1 = new TextView(this);
+        tv1.setText(" User Type ");
+        tv1.setTextColor(Color.BLACK);
+        row0.addView(tv1);
+        TextView tv2 = new TextView(this);
+        tv2.setText(" Training Level ");
+        tv2.setTextColor(Color.BLACK);
+        row0.addView(tv2);
+        TextView tv3 = new TextView(this);
+        tv3.setText(" Location ");
+        tv3.setTextColor(Color.BLACK);
+        row0.addView(tv3);
+        stk.addView(row0);
+    }
+
+    /** Called when the user taps the enter patient data button */
+    public void backToMainMenu(View view) {
+        String caller = getIntent().getStringExtra("caller");
+        Class callerClass;
+        try {
+            callerClass = Class.forName(caller);
+            Intent intent = new Intent(this, callerClass);
+            startActivity(intent);
+        } catch (Exception e){
+            Log.e(e.getMessage(),"cannot get caller id");
+        }
+    }
+
+    /** Called when the user taps the log out button */
+    public void logOut(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    /** helper function to erase search result at beginning of each search */
+    private void cleanTable(TableLayout table) {
+        int childCount = table.getChildCount();
+        // Remove all rows except the first one
+        if (childCount >= 1) {
+            table.removeViews(1, childCount - 1);
+        }
     }
 
     /** this function takes in JSON search result and create the TableRow objects within the
      * TableLayout in the scrollable search result interface*/
     private void createTable(JSONArray searchResult) {
+        TableLayout stk = findViewById(R.id.TableLayout_user_lookup_table);
+        cleanTable(stk);
+
         //create table
-        TableLayout stk = (TableLayout) findViewById(R.id.TableLayout_user_lookup_table);
-        TableRow row0 = new TableRow(this);
-        TextView tv0 = new TextView(this);
-        tv0.setText(" User ID ");
-        tv0.setTextColor(Color.WHITE);
-        row0.addView(tv0);
-        TextView tv1 = new TextView(this);
-        tv1.setText(" User Type ");
-        tv1.setTextColor(Color.WHITE);
-        row0.addView(tv1);
-        TextView tv2 = new TextView(this);
-        tv2.setText(" Training Level ");
-        tv2.setTextColor(Color.WHITE);
-        row0.addView(tv2);
-        TextView tv3 = new TextView(this);
-        tv3.setText(" Location ");
-        tv3.setTextColor(Color.WHITE);
-        row0.addView(tv3);
-        stk.addView(row0);
+        Log.d("Pootie", "creating individual rows of table");
         for (int i = 0; i < searchResult.length(); i++) {
+            Log.d("Pootie", "creating row number "+ i);
             TableRow tbrow = new TableRow(this);
             TextView t1v = new TextView(this);
             t1v.setText(searchResult.optJSONObject(i).optString("UserID"));
-            t1v.setTextColor(Color.WHITE);
+            t1v.setTextColor(Color.BLACK);
             t1v.setGravity(Gravity.CENTER);
             tbrow.addView(t1v);
             TextView t2v = new TextView(this);
             t2v.setText(searchResult.optJSONObject(i).optString("UserType"));
-            t2v.setTextColor(Color.WHITE);
+            t2v.setTextColor(Color.BLACK);
             t2v.setGravity(Gravity.CENTER);
             tbrow.addView(t2v);
             TextView t3v = new TextView(this);
             t3v.setText(searchResult.optJSONObject(i).optString("Training"));
-            t3v.setTextColor(Color.WHITE);
+            t3v.setTextColor(Color.BLACK);
             t3v.setGravity(Gravity.CENTER);
             tbrow.addView(t3v);
             TextView t4v = new TextView(this);
             t4v.setText(searchResult.optJSONObject(i).optString("Location"));
-            t4v.setTextColor(Color.WHITE);
+            t4v.setTextColor(Color.BLACK);
             t4v.setGravity(Gravity.CENTER);
             tbrow.addView(t4v);
             stk.addView(tbrow);
@@ -83,7 +120,7 @@ public class UserLookupActivity extends AppCompatActivity {
 
     /** this function queries the result using the search provided by the user, it then calls
      * create table to visualize it*/
-    public void searchForUser() {
+    public void searchForUser(View view) {
         // collect interface data
         EditText editText1 = findViewById(R.id.editText_user_lookup_id);     // collect user search id
         String userID = editText1.getText().toString();
@@ -127,7 +164,7 @@ public class UserLookupActivity extends AppCompatActivity {
 
         // create JSON search result
         JSONArray searchResult = new JSONArray();
-        if (userID != "") {                                                  // if user entered a search id
+        if (!userID.equals("")) {                                                  // if user entered a search id
             for (int i = 0; i < existingUsers.length(); i++){
                 if (existingUsers.optJSONObject(i).optString("UserID").equals(userID)){
                     searchResult.put(existingUsers.optJSONObject(i));
@@ -135,7 +172,8 @@ public class UserLookupActivity extends AppCompatActivity {
             }
         }
         if (ifHealthWorker||ifDoctor||ifAdmin){                              // if user search about user type
-            if (withUserType == "And"){
+            Log.d("Pootie", "checking user type");
+            if (withUserType.equals("And")){
                 JSONArray temp = new JSONArray();
                 if (searchResult.length()!=0){
                     for (int i = 0; i < searchResult.length(); i++) {
@@ -154,7 +192,8 @@ public class UserLookupActivity extends AppCompatActivity {
             }
         }
         if (ifProficient||ifLimited||ifNoTraining){                          // if user search about user training
-            if (withUserType == "And"){
+            Log.d("Pootie", "checking training level");
+            if (withTraining.equals("And")){
                 JSONArray temp = new JSONArray();
                 if (searchResult.length()!=0) {
                     for (int i = 0; i < searchResult.length(); i++) {
@@ -172,8 +211,9 @@ public class UserLookupActivity extends AppCompatActivity {
                 }
             }
         }
-        if (location != ""){                                                 // if user search with location
-            if (withUserType == "And"){
+        if (!location.equals("")){                                                 // if user search with location
+            Log.d("Pootie", "checking user location");
+            if (withLocation.equals("And")){
                 JSONArray temp = new JSONArray();
                 if (searchResult.length()!=0) {
                     for (int i = 0; i < searchResult.length(); i++) {
@@ -195,13 +235,16 @@ public class UserLookupActivity extends AppCompatActivity {
 
         // in the end remove duplicate results
         if (searchResult.length()!=0){
+            Log.d("Pootie", "removing duplicate results");
             JSONArray temp = new JSONArray();
             for (int i = 0; i < searchResult.length(); i++) {
+                boolean seen = false;
                 for (int j = i+1; j < searchResult.length(); j++) {
                     if (!searchResult.optJSONObject(i).optString("UserID").equals(searchResult.optJSONObject(j).optString("UserID"))){
-                        temp.put(searchResult.optJSONObject(i));
+                        seen = true;
                     }
                 }
+                if (!seen) {temp.put(searchResult.optJSONObject(i));}
             }
             searchResult = temp;
         }

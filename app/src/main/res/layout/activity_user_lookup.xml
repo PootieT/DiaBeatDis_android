@@ -7,8 +7,8 @@
     tools:context="com.example.peter.diabeatdis_android.UserLookupActivity">
 
     <ScrollView
-        android:layout_width="572dp"
-        android:layout_height="143dp"
+        android:layout_width="864dp"
+        android:layout_height="282dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -149,6 +149,7 @@
         android:layout_height="38dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="backToMainMenu"
         android:text="@string/button_main_menu"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toStartOf="@+id/button54"
@@ -159,6 +160,7 @@
         android:layout_width="92dp"
         android:layout_height="38dp"
         android:layout_marginStart="8dp"
+        android:onClick="searchForUser"
         android:text="@string/button_search"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBaseline_toBaselineOf="@+id/editText_user_lookup_id"
@@ -170,6 +172,7 @@
         android:layout_height="38dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="logOut"
         android:text="@string/button_logout"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"

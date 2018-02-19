@@ -13,9 +13,10 @@ public class DoctorMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_doctor_main);
     }
 
-    /** Called when the user taps the enter patient data button */
+    /** Called when the user taps the main menu button */
     public void enterPatientData(View view) {
         Intent intent = new Intent(this, PatientSelectorActivity.class);
+        intent.putExtra("caller", "DoctorMainActivity");
         startActivity(intent);
     }
 
@@ -28,18 +29,21 @@ public class DoctorMainActivity extends AppCompatActivity {
     /** Called when the user taps the patient lookup button */
     public void lookupPatient(View view) {
         Intent intent = new Intent(this, PatientLookupActivity.class);
+        intent.putExtra("caller", "DoctorMainActivity");
         startActivity(intent);
     }
 
     /** Called when the user taps the device setting button */
     public void deviceSetting(View view) {
         Intent intent = new Intent(this, DeviceSettingActivity.class);
+        intent.putExtra("caller", "DoctorMainActivity");
         startActivity(intent);
     }
 
     /** Called when the user taps the user lookup button */
     public void userLookup(View view) {
         Intent intent = new Intent(this, UserLookupActivity.class);
+        intent.putExtra("caller", "DoctorMainActivity");
         startActivity(intent);
     }
 

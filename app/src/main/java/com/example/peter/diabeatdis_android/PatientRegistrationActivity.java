@@ -85,7 +85,7 @@ public class PatientRegistrationActivity extends AppCompatActivity {
 
             JSONObject patientData = new JSONObject();                           // combine and convert them into JSON data format
             try {
-                patientData = new JSONObject("{\"PatientID\":" + patientID +",\"Name\":" + name +",\"Location\":" + location + ",\"Age\":" + age + ",\"Sex\":" + sex + ",\"RiskCategory\":" + riskCategory + "}");
+                patientData = new JSONObject("{\"PatientID\":" + patientID +",\"Name\":" + name +",\"Location\":" + location + ",\"Age\":" + age + ",\"Sex\":" + sex +",\"Mobile\":" + mobile + ",\"RiskCategory\":" + riskCategory + "}");
             } catch (JSONException e) {
                 patientData = new JSONObject();
             }
