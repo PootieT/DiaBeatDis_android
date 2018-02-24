@@ -30,9 +30,16 @@
         <activity android:name=".PatientRegistrationActivity" />
         <activity android:name=".MessageDoctorActivity" />
         <activity android:name=".DataCollectionActivity" />
-        <activity android:name=".DataCollectionSuccessActivity" />
+        <activity android:name=".DataCollectionAfterActivity" />
         <activity android:name=".DataCollectionEmergencyActivity" />
-        <activity android:name=".DownloadDataActivity"></activity>
+        <activity android:name=".DownloadDataActivity" />
+        <activity android:name=".PatientSummaryActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

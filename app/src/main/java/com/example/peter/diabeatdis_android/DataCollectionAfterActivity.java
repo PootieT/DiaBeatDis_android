@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class DataCollectionSuccessActivity extends AppCompatActivity {
+public class DataCollectionAfterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,14 @@ public class DataCollectionSuccessActivity extends AppCompatActivity {
     /** Called when the user taps the change patient button */
     public void changePatient(View view) {
         Intent intent = new Intent(this, PatientSelectorActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the change patient button */
+    public void testAgain(View view) {
+        String patientID = getIntent().getStringExtra("PatientID");
+        Intent intent = new Intent(this, DataCollectionActivity.class);
+        intent.putExtra("PatientID", patientID);
         startActivity(intent);
     }
 }

@@ -16,7 +16,8 @@ public class DoctorMainActivity extends AppCompatActivity {
     /** Called when the user taps the main menu button */
     public void enterPatientData(View view) {
         Intent intent = new Intent(this, PatientSelectorActivity.class);
-        intent.putExtra("caller", "DoctorMainActivity");
+        intent.putExtra("caller", "com.example.peter.diabeatdis_android.DoctorMainActivity")
+              .putExtra("purpose", "recordData");
         startActivity(intent);
     }
 
@@ -29,21 +30,29 @@ public class DoctorMainActivity extends AppCompatActivity {
     /** Called when the user taps the patient lookup button */
     public void lookupPatient(View view) {
         Intent intent = new Intent(this, PatientLookupActivity.class);
-        intent.putExtra("caller", "DoctorMainActivity");
+        intent.putExtra("caller", "com.example.peter.diabeatdis_android.DoctorMainActivity");
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the patient lookup button */
+    public void patientSummary(View view) {
+        Intent intent = new Intent(this, PatientSelectorActivity.class);
+        intent.putExtra("caller", "com.example.peter.diabeatdis_android.DoctorMainActivity")
+              .putExtra("purpose", "patientSummary");
         startActivity(intent);
     }
 
     /** Called when the user taps the device setting button */
     public void deviceSetting(View view) {
         Intent intent = new Intent(this, DeviceSettingActivity.class);
-        intent.putExtra("caller", "DoctorMainActivity");
+        intent.putExtra("caller", "com.example.peter.diabeatdis_android.DoctorMainActivity");
         startActivity(intent);
     }
 
     /** Called when the user taps the user lookup button */
     public void userLookup(View view) {
         Intent intent = new Intent(this, UserLookupActivity.class);
-        intent.putExtra("caller", "DoctorMainActivity");
+        intent.putExtra("caller", "com.example.peter.diabeatdis_android.DoctorMainActivity");
         startActivity(intent);
     }
 

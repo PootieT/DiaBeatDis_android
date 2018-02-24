@@ -99,4 +99,8 @@
     <string name="string_emergency_message">The patient has very high blood glucose! You need to contact the doctor to determine best course of action!</string>
     <string name="string_re_enter_password">Re-Enter Password:</string>
     <string name="string_download_data_using">Download data through:</string>
+    <string name="string_voltage_reading">The voltage reading is:</string>
+    <string name="button_record_voltage">Record Voltage</string>
+    <string name="string_recording_successful">Recording Successful</string>
+    <string name="button_back_to_patient_lookup">Back to Patient Lookup</string>
 </resources>

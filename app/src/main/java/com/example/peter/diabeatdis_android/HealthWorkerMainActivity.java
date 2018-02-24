@@ -16,7 +16,7 @@ public class HealthWorkerMainActivity extends AppCompatActivity {
     /** Called when the user taps the message to doctor button */
     public void messageDoctor(View view) {
         Intent intent = new Intent(this, MessageDoctorActivity.class);
-        intent.putExtra("caller", "HealthWorkerMainActivity");
+        intent.putExtra("caller", "com.example.peter.diabeatdis_android.HealthWorkerMainActivity");
         startActivity(intent);
     }
 
@@ -29,7 +29,8 @@ public class HealthWorkerMainActivity extends AppCompatActivity {
     /** Called when the user taps the enter patient data button */
     public void enterPatientData(View view) {
         Intent intent = new Intent(this, PatientSelectorActivity.class);
-//        Intent intent = new Intent(this, DataCollectionActivity.class);
+        intent.putExtra("caller", "com.example.peter.diabeatdis_android.HealthWorkerMainActivity")
+              .putExtra("purpose", "recordData");
         startActivity(intent);
     }
 }

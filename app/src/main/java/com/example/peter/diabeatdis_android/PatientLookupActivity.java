@@ -81,6 +81,7 @@ public class PatientLookupActivity extends AppCompatActivity {
     /** upon pressing back button, go back to previous activity */
     public void mainMenu(View view) {
         String caller = getIntent().getStringExtra("caller");
+        Log.d("Pootie", "the caller class is " + caller);
         Class callerClass;
         try {
             callerClass = Class.forName(caller);

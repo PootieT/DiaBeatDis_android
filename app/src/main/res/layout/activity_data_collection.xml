@@ -16,6 +16,17 @@
         android:onClick="messageDoctor"
         android:text="@string/button_message_to_doctor"
         android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toStartOf="@+id/button70"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button70"
+        android:layout_width="106dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/button_main_menu"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toStartOf="@+id/button50"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,6 +46,18 @@
         android:id="@+id/button49"
         android:layout_width="120dp"
         android:layout_height="38dp"
+        android:layout_marginTop="8dp"
+        android:onClick="recordVoltage"
+        android:text="@string/button_record_voltage"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toEndOf="@+id/button_data_collection_show_voltage"
+        app:layout_constraintStart_toStartOf="@+id/button_data_collection_show_voltage"
+        app:layout_constraintTop_toBottomOf="@+id/textView_data_collection_show_voltage" />
+
+    <Button
+        android:id="@+id/button68"
+        android:layout_width="120dp"
+        android:layout_height="38dp"
         android:layout_marginStart="120dp"
         android:layout_marginTop="8dp"
         android:onClick="changePatient"
@@ -45,11 +68,12 @@
 
     <Button
         android:id="@+id/button_data_collection_show_voltage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="38dp"
         android:layout_marginTop="300dp"
         android:onClick="showVoltage"
         android:text="@string/button_show_voltage"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,11 +86,22 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:text="@string/string_voltage_reading"
         app:layout_constraintEnd_toEndOf="@+id/button_data_collection_show_voltage"
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="@+id/button_data_collection_show_voltage"
         app:layout_constraintTop_toBottomOf="@+id/button_data_collection_show_voltage" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph_data_collection"
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_data_collection_show_voltage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
 

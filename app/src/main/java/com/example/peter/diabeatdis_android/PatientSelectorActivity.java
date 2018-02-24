@@ -51,6 +51,7 @@ public class PatientSelectorActivity extends AppCompatActivity {
         EditText editText1 = findViewById(R.id.editText_patient_select_id);     // collect user input id, pass word, and phone number
         String patientID = editText1.getText().toString();
         TextView textView = findViewById(R.id.textView_patient_select_error);
+        String purpose = getIntent().getStringExtra("purpose");
 
         JSONArray existingUsers = new JSONArray();                      // read in existing JSON file for user database
         try {
@@ -61,9 +62,18 @@ public class PatientSelectorActivity extends AppCompatActivity {
 
         for (int i = 0; i < existingUsers.length(); i++) {              // loop through all user to see if there is exisiting user ID
             if (existingUsers.optJSONObject(i).optString("PatientID").equals(patientID)){
-                Intent intent = new Intent(this, DataCollectionActivity.class);
-                intent.putExtra("patientID", patientID);
-                startActivity(intent);
+                if (purpose.equals("recordData")) {
+                    Intent intent = new Intent(this, DataCollectionActivity.class);
+                    intent.putExtra("PatientID", patientID)
+                          .putExtra("caller", getIntent().getStringExtra("caller"));
+                    startActivity(intent);
+                } else if (purpose.equals("patientSummary")) {
+                    Intent intent = new Intent(this, PatientSummaryActivity.class);
+                    intent.putExtra("PatientID", patientID)
+                          .putExtra("caller", getIntent().getStringExtra("caller"));
+                    startActivity(intent);
+                }
+
             }
         }
 

@@ -40,6 +40,7 @@
         android:layout_height="40dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
+        android:onClick="patientSummary"
         android:text="@string/button_patient_summary"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBottom_toTopOf="@+id/button15"
