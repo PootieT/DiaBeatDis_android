@@ -2,6 +2,7 @@ package com.example.peter.diabeatdis_android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +58,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
         CheckBox box3 = findViewById(R.id.checkBox_user_reg_admin);
         Boolean ifAdmin = box3.isChecked();
         String userType = ifHealthWorker? "health_worker": ifDoctor? "doctor": ifAdmin? "admin": "health_worker"; // if none selected, default to health worker
-
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        Boolean canHealthWorkerRegister = sharedPref.getBoolean(getString(R.string.pref_can_health_worker_register), true);
+        Log.d("pootie", "health worker can register?" + canHealthWorkerRegister);
         JSONObject userData = new JSONObject();                           // combine and convert them into JSON data format
         try {
             userData = new JSONObject("{\"UserID\":"+userID+",\"Password\":"+password+",\"MobilePhone\":" + phone + ",\"UserType\":"+userType+ "}");
@@ -69,21 +73,24 @@ public class UserRegistrationActivity extends AppCompatActivity {
         } catch (JSONException e) {
             Log.e("convert",e.getMessage());
         }
-        existingUsers.put(userData);                                      // combine the old user data with new user data
-        writeToFile(FILENAME, existingUsers.toString());                  // save all the user data away
-        String dataOut = readFromFile(FILENAME);
-        Log.d("success: ", dataOut);
-        System.out.print(dataOut);
 
-        if (userType == "health_worker") {
-            Intent intent = new Intent(this, HealthWorkerMainActivity.class);
-            startActivity(intent);
-        } else if (userType == "doctor"){
-            Intent intent = new Intent(this, DoctorMainActivity.class);
-            startActivity(intent);
-        } else if (userType == "admin"){
-            Intent intent = new Intent(this, AdminMainActivity.class);
-            startActivity(intent);
+        if (!(ifHealthWorker && !canHealthWorkerRegister)) {              // as long as person is not register for health worker and register setting allow health worker
+            existingUsers.put(userData);                                      // combine the old user data with new user data
+            writeToFile(FILENAME, existingUsers.toString());                  // save all the user data away
+            String dataOut = readFromFile(FILENAME);
+            Log.d("success: ", dataOut);
+            System.out.print(dataOut);
+
+            if (userType == "health_worker") {
+                Intent intent = new Intent(this, HealthWorkerMainActivity.class);
+                startActivity(intent);
+            } else if (userType == "doctor") {
+                Intent intent = new Intent(this, DoctorMainActivity.class);
+                startActivity(intent);
+            } else if (userType == "admin") {
+                Intent intent = new Intent(this, AdminMainActivity.class);
+                startActivity(intent);
+            }
         }
     }
 

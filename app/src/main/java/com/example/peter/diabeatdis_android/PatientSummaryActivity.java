@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -72,6 +73,20 @@ public class PatientSummaryActivity extends AppCompatActivity {
         } catch (JSONException e) {
             Log.e("convert", e.getMessage());
             patientRecord = new JSONArray();
+        }
+        for (int i = 0; i<patientRecord.length(); i++) {
+            if (patientRecord.optJSONObject(i).optString("PatientID").equals(patientID)) {
+                Log.d("pootie","the data is: " + patientRecord.optJSONObject(i).toString());
+                String name = patientRecord.optJSONObject(i).optString("Name");
+                String age = patientRecord.optJSONObject(i).optString("Age");
+                String sex = patientRecord.optJSONObject(i).optString("Sex");
+                String location = patientRecord.optJSONObject(i).optString("Location");
+                String mobile = patientRecord.optJSONObject(i).optString("Mobile");
+                String riskCategory = patientRecord.optJSONObject(i).optString("RiskCategory");
+                TextView textView = findViewById(R.id.textView_patient_summary_patient_info);
+                textView.setText("Name: "+name+"  Age: "+age+"  Sex: "+sex+"  Location: "+location+
+                                 "  Mobile Number: "+mobile+"  Risk Category: " + riskCategory);
+            }
         }
     }
 

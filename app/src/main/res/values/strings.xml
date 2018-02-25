@@ -52,7 +52,7 @@
     <string name="check_limited">Limited</string>
     <string name="check_none">Sucks Ass</string>
     <string name="string_data_active">Data Active:</string>
-    <string name="string_new_health_worker_can_register">New Health Workers can register:</string>
+    <string name="string_new_health_worker_can_register">New Health Workers Can Register</string>
     <string name="string_memory_usage">Memory Usage:</string>
     <string name="string_clear_memory">Clear Memory:</string>
     <string name="check_glucose_ir">Glucose IR</string>
@@ -103,4 +103,5 @@
     <string name="button_record_voltage">Record Voltage</string>
     <string name="string_recording_successful">Recording Successful</string>
     <string name="button_back_to_patient_lookup">Back to Patient Lookup</string>
+    <string name="pref_can_health_worker_register">true</string>
 </resources>
