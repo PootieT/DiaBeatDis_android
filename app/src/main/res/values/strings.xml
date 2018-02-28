@@ -104,4 +104,7 @@
     <string name="string_recording_successful">Recording Successful</string>
     <string name="button_back_to_patient_lookup">Back to Patient Lookup</string>
     <string name="pref_can_health_worker_register">true</string>
+    <string name="string_load_cartridge">1. Load Cartridge</string>
+    <string name="string_prick_finger">2. Prick Finger</string>
+    <string name="string_collect_blood">3. Collect Blood</string>
 </resources>

@@ -7,6 +7,28 @@
     android:layout_height="match_parent"
     tools:context="com.example.peter.diabeatdis_android.DataCollectionActivity">
 
+    <TextView
+        android:id="@+id/textView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/string_prick_finger"
+        app:layout_constraintEnd_toEndOf="@+id/gifTextView1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/gifTextView1"
+        app:layout_constraintTop_toBottomOf="@+id/gifTextView1" />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/string_collect_blood"
+        app:layout_constraintEnd_toEndOf="@+id/gifTextView2"
+        app:layout_constraintStart_toStartOf="@+id/gifTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/gifTextView2" />
+
     <Button
         android:id="@+id/button53"
         android:layout_width="160dp"
@@ -102,6 +124,47 @@
         app:layout_constraintBottom_toTopOf="@+id/button_data_collection_show_voltage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <pl.droidsonroids.gif.GifTextView
+        android:id="@+id/gifTextView"
+        android:layout_width="121dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="284dp"
+        android:background="@drawable/load_cartrige"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/string_load_cartridge"
+        app:layout_constraintEnd_toEndOf="@+id/gifTextView"
+        app:layout_constraintStart_toStartOf="@+id/gifTextView"
+        app:layout_constraintTop_toBottomOf="@+id/gifTextView" />
+
+    <pl.droidsonroids.gif.GifTextView
+        android:id="@+id/gifTextView1"
+        android:layout_width="121dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="284dp"
+        android:background="@drawable/finger_prick"
+        app:layout_constraintStart_toEndOf="@+id/gifTextView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.droidsonroids.gif.GifTextView
+        android:id="@+id/gifTextView2"
+        android:layout_width="121dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="284dp"
+        android:background="@drawable/collect_blood"
+        app:layout_constraintStart_toEndOf="@+id/gifTextView1"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
 

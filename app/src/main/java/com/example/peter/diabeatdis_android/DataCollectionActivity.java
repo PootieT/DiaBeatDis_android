@@ -136,11 +136,13 @@ public class DataCollectionActivity extends AppCompatActivity {
 
         if (reading < EMERGENCY_BLOOD_GLUCOSE) {
             Intent intent = new Intent(this, DataCollectionAfterActivity.class);
-            intent.putExtra("PatientID",patientID);
+            intent.putExtra("PatientID",patientID)
+                  .putExtra("caller",getIntent().getStringExtra("caller"));
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, DataCollectionEmergencyActivity.class);
-            intent.putExtra("PatientID",patientID);
+            intent.putExtra("PatientID",patientID)
+                  .putExtra("caller",getIntent().getStringExtra("caller"));
             startActivity(intent);
         }
     }
