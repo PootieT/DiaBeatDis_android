@@ -12,6 +12,7 @@ public class DataCollectionAfterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collection_after);
+        Log.d("Pootie", "the caller id is " + getIntent().getStringExtra("caller"));
     }
 
     /** Called when the user taps the log out button */
@@ -23,6 +24,8 @@ public class DataCollectionAfterActivity extends AppCompatActivity {
     /** Called when the user taps the message to doctor button */
     public void messageDoctor(View view) {
         Intent intent = new Intent(this, MessageDoctorActivity.class);
+        intent.putExtra("PatientID", getIntent().getStringExtra("PatientID"))
+                .putExtra("caller", getIntent().getStringExtra("caller"));
         startActivity(intent);
     }
 
@@ -42,14 +45,15 @@ public class DataCollectionAfterActivity extends AppCompatActivity {
     /** Called when the user taps the change patient button */
     public void changePatient(View view) {
         Intent intent = new Intent(this, PatientSelectorActivity.class);
+        intent.putExtra("caller", getIntent().getStringExtra("caller"));
         startActivity(intent);
     }
 
     /** Called when the user taps the change patient button */
     public void testAgain(View view) {
-        String patientID = getIntent().getStringExtra("PatientID");
         Intent intent = new Intent(this, DataCollectionActivity.class);
-        intent.putExtra("PatientID", patientID);
+        intent.putExtra("PatientID", getIntent().getStringExtra("PatientID"))
+                .putExtra("caller", getIntent().getStringExtra("caller"));
         startActivity(intent);
     }
 }

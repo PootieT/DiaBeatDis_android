@@ -207,12 +207,12 @@ public class PatientLookupActivity extends AppCompatActivity {
         AutoCompleteTextView ACText = findViewById(R.id.ACTextView_patient_lookup_location);     // collect user search location
         String location = ACText.getText().toString();
 
-        SeekBar seekbar1 = findViewById(R.id.seekBar_patient_lookup_max_age);                  // collect age range search information
-        seekbar1.setMax(maxAgeLimit);
-        Integer maxAge = seekbar1.getProgress();
-        SeekBar seekbar2 = findViewById(R.id.seekBar_patient_lookup_min_age);
-        seekbar2.setMax(maxAgeLimit);
-        Integer minAge = seekbar2.getProgress();
+        TextView text1 = findViewById(R.id.editText_patient_lookup_max_age);                  // collect age range search information
+        String max = text1.getText().toString();
+        TextView text2 = findViewById(R.id.editText_patient_lookup_min_age);                  // collect age range search information
+        String min = text2.getText().toString();
+        Integer maxAge = max.equals("")?0:Integer.parseInt(max);
+        Integer minAge = min.equals("")?0:Integer.parseInt(min);
 
         // create JSON search result
         JSONArray searchResult = new JSONArray();
@@ -247,7 +247,7 @@ public class PatientLookupActivity extends AppCompatActivity {
         if (ifMale||ifFemale){                                            // if user search about patient sex
             Log.d("Pootie", "checking sex");
             JSONArray temp = new JSONArray();
-            if (searchResult.length()!=0 && !initialSearch) {
+            if (!initialSearch) {
                 for (int i = 0; i < searchResult.length(); i++) {
                     if (searchResult.optJSONObject(i).optString("Sex").equals(sex)) {
                         temp.put(searchResult.optJSONObject(i));
@@ -266,26 +266,28 @@ public class PatientLookupActivity extends AppCompatActivity {
         if (!location.equals("")){                                                 // if user search with location
             Log.d("Pootie", "checking user location");
             JSONArray temp = new JSONArray();
-            if (searchResult.length()!=0) {
+            if (!initialSearch) {
                 for (int i = 0; i < searchResult.length(); i++) {
-                    if (searchResult.optJSONObject(i).optString("Location").equals(location)) {
+                    if (searchResult.optJSONObject(i).optString("Location").contains(location)) {
                         temp.put(searchResult.optJSONObject(i));
                     }
                 }
             } else {
                 for (int i = 0; i < existingUsers.length(); i++) {
-                    if (existingUsers.optJSONObject(i).optString("Location").equals(location)) {
-                        temp.put(searchResult.optJSONObject(i));
+                    if (existingUsers.optJSONObject(i).optString("Location").contains(location)) {
+                        temp.put(existingUsers.optJSONObject(i));
                     }
                 }
             }
             searchResult = temp;
             initialSearch = false;
         }
-        if (seekbar1.getProgress() != 0 ||seekbar2.getProgress() != 0){           // if user search with progress
+        if (maxAge!=0 ||minAge != 0){           // if user search with progress
             Log.d("Pootie", "checking user age range");
+            Log.d("Pootie", "maxAge:"+maxAge+"minAge"+minAge);
+            Log.d("Pootie", "initialSearch:"+initialSearch+"search result:"+searchResult.length());
             JSONArray temp = new JSONArray();
-            if (searchResult.length()!=0 && !initialSearch) {
+            if (!initialSearch) {
                 for (int i = 0; i < searchResult.length(); i++) {
                     if (searchResult.optJSONObject(i).optInt("Age") < maxAge &&
                         searchResult.optJSONObject(i).optInt("Age") > minAge) {
@@ -294,6 +296,7 @@ public class PatientLookupActivity extends AppCompatActivity {
                 }
             } else {
                 for (int i = 0; i < existingUsers.length(); i++) {
+                    Log.d("Pootie","record age"+existingUsers.optJSONObject(i).optInt("Age"));
                     if (existingUsers.optJSONObject(i).optInt("Age") < maxAge &&
                             existingUsers.optJSONObject(i).optInt("Age") > minAge) {
                         temp.put(existingUsers.optJSONObject(i));
@@ -306,7 +309,7 @@ public class PatientLookupActivity extends AppCompatActivity {
 
         // in the end remove duplicate results
         if (searchResult.length()!=0){
-            Log.d("Pootie", "removing duplicate results");
+            Log.d("Pootie", "removing duplicate results:"+searchResult);
             JSONArray temp = new JSONArray();
             for (int i = 0; i < searchResult.length(); i++) {
                 boolean seen = false;

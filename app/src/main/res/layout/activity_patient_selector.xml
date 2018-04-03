@@ -48,7 +48,7 @@
         android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="@string/hint_identifier"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintBaseline_toBaselineOf="@+id/button14"
         app:layout_constraintEnd_toStartOf="@+id/button14"
         app:layout_constraintHorizontal_chainStyle="packed"

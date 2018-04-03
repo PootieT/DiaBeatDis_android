@@ -23,11 +23,14 @@ public class PatientSelectorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_selector);
+        Log.d("Pootie", "the caller id is " + getIntent().getStringExtra("caller"));
     }
 
     /** Called when the user taps the message to doctor button */
     public void messageDoctor(View view) {
         Intent intent = new Intent(this, MessageDoctorActivity.class);
+        intent.putExtra("PatientID", getIntent().getStringExtra("PatientID"))
+                .putExtra("caller", getIntent().getStringExtra("caller"));
         startActivity(intent);
     }
 
@@ -40,6 +43,7 @@ public class PatientSelectorActivity extends AppCompatActivity {
     /** Called when the user taps the new patient button */
     public void newPatientRegistration(View view) {
         Intent intent = new Intent(this, PatientRegistrationActivity.class);
+        intent.putExtra("caller", getIntent().getStringExtra("caller"));
         startActivity(intent);
     }
 
@@ -59,7 +63,7 @@ public class PatientSelectorActivity extends AppCompatActivity {
         } catch (JSONException e) {
             Log.e("convert",e.getMessage());
         }
-
+        boolean patientFound = false;
         for (int i = 0; i < existingUsers.length(); i++) {              // loop through all user to see if there is exisiting user ID
             if (existingUsers.optJSONObject(i).optString("PatientID").equals(patientID)){
                 if (purpose.equals("recordData")) {
@@ -73,11 +77,15 @@ public class PatientSelectorActivity extends AppCompatActivity {
                           .putExtra("caller", getIntent().getStringExtra("caller"));
                     startActivity(intent);
                 }
-
+                patientFound = true;
             }
         }
+        if (!patientFound){
+            textView.setText("Sorry, there is no patient with this registered ID");
+        } else {
+            textView.setText("Patient record found.");
+        }
 
-        textView.setText("Sorry, there is no patient with this registered ID");
     }
 
     /** helper function to read string data into a txt file*/

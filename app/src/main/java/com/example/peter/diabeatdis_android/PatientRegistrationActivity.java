@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -32,6 +33,7 @@ public class PatientRegistrationActivity extends AppCompatActivity {
     /** Called when the user taps the message to doctor button */
     public void messageDoctor(View view) {
         Intent intent = new Intent(this, MessageDoctorActivity.class);
+        intent.putExtra("caller", getIntent().getStringExtra("caller"));
         startActivity(intent);
     }
 
@@ -64,18 +66,19 @@ public class PatientRegistrationActivity extends AppCompatActivity {
         name = name.replaceAll(" ", "_").replaceAll(",","_").toLowerCase();
         EditText editText6 = findViewById(R.id.editText_patient_reg_sex);
         String sex = editText6.getText().toString();
-        CheckBox box1 = findViewById(R.id.checkBox_patient_reg_if_diabetic);
+        RadioButton box1 = findViewById(R.id.checkBox_patient_reg_if_diabetic);
         Boolean ifDiabetic = box1.isChecked();
-        CheckBox box2 = findViewById(R.id.checkBox_patient_reg_if_at_risk);
+        RadioButton box2 = findViewById(R.id.checkBox_patient_reg_if_at_risk);
         Boolean ifAtRisk = box2.isChecked();
-        CheckBox box3 = findViewById(R.id.checkBox_patient_reg_if_no_risk);
+        RadioButton box3 = findViewById(R.id.checkBox_patient_reg_if_no_risk);
         Boolean ifNoRisk = box3.isChecked();
-        CheckBox box4 = findViewById(R.id.checkBox_patient_reg_if_unknown_risk);
+        RadioButton box4 = findViewById(R.id.checkBox_patient_reg_if_unknown_risk);
         Boolean ifUnknownRisk = box4.isChecked();
         String riskCategory = ifDiabetic? "diabetic":ifAtRisk?"at_risk":ifNoRisk?"no_risk":ifUnknownRisk?"unknown_risk":"unknown_risk";
         TextView textView = findViewById(R.id.textView_patient_reg_error);
 
-        if (patientID != "" || age != ""  || location != ""  || mobile != ""  || name != ""  || sex != "") {
+
+        if (!patientID.equals("") && !age.equals("") && !location.equals("") && !mobile.equals("") && !name.equals("") && !sex.equals("")) {
             JSONArray existingPatients = new JSONArray();                      // read in existing JSON file for user database
             try {
                 existingPatients = new JSONArray(readFromFile(FILENAME));
@@ -90,15 +93,26 @@ public class PatientRegistrationActivity extends AppCompatActivity {
                 patientData = new JSONObject();
             }
 
-            existingPatients.put(patientData);                                      // combine the old user data with new user data
-            writeToFile(FILENAME, existingPatients.toString());                  // save all the user data away
-            String dataOut = readFromFile(FILENAME);
-            Log.d("success: ", dataOut);
-            System.out.print(dataOut);
+            // checking if there is existing user ID
+            boolean existPatient = false;
+            for (int i = 0; i<existingPatients.length(); i++){
+                if (existingPatients.optJSONObject(i).optString("PatientID").equals(patientID)){
+                    existPatient = true;
+                    textView.setText("There is an existing patient with the same patient ID!");
+                }
+            }
+            if (!existPatient) {
+                textView.setText("Checking registration permission and adding to database...");
+                existingPatients.put(patientData);                                      // combine the old user data with new user data
+                writeToFile(FILENAME, existingPatients.toString());                  // save all the user data away
+                String dataOut = readFromFile(FILENAME);
+                Log.d("success: ", dataOut);
+                System.out.print(dataOut);
 
-            Intent intent = new Intent(this, DataCollectionActivity.class);
-            intent.putExtra("patientID", patientID);
-            startActivity(intent);
+                Intent intent = new Intent(this, DataCollectionActivity.class);
+                intent.putExtra("patientID", patientID);
+                startActivity(intent);
+            }
         } else {
             textView.setText("Please fill out all information.");
         }

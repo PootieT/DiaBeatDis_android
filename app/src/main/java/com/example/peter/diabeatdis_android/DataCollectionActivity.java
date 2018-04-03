@@ -40,6 +40,7 @@ public class DataCollectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collection);
+        Log.d("Pootie", "the caller id is " + getIntent().getStringExtra("caller"));
     }
 
     /** Called when the user taps the log out button */
@@ -64,12 +65,14 @@ public class DataCollectionActivity extends AppCompatActivity {
     /** Called when the user taps the message to doctor button */
     public void messageDoctor(View view) {
         Intent intent = new Intent(this, MessageDoctorActivity.class);
+        intent.putExtra("caller", getIntent().getStringExtra("caller"));
         startActivity(intent);
     }
 
     /** Called when the user taps the change patient button */
     public void changePatient(View view) {
         Intent intent = new Intent(this, PatientSelectorActivity.class);
+        intent.putExtra("caller", getIntent().getStringExtra("caller"));
         startActivity(intent);
     }
 
@@ -208,6 +211,7 @@ public class DataCollectionActivity extends AppCompatActivity {
 
                 long shortsRead = 0;
                 final TextView textView = findViewById(R.id.textView_data_collection_show_voltage);
+                final TextView textView2 = findViewById(R.id.textView_data_collection_show_voltage2);
                 mShouldContinue = true;
                 int count = 0;
                 while (mShouldContinue) {
@@ -237,6 +241,7 @@ public class DataCollectionActivity extends AppCompatActivity {
                 }
 
                 final double finalMax = max;
+                final double finalMin = min;
                 Log.d("Pootie", "For overall, average voltage is" + sum/audioBuffer.length);
                 Log.d("Pootie", "For overall, maximum voltage is" + max);
                 Log.d("Pootie", "For overall, minimum voltage is" + min);
@@ -258,9 +263,14 @@ public class DataCollectionActivity extends AppCompatActivity {
                 // display the max of the data
                 textView.post(new Runnable() {
                                   public void run() {
-                                      textView.setText("The voltage reading is: " + Double.toString(convertOneVoltage(finalMax)));
+                        textView.setText("The voltage reading is: " + Double.toString(convertOneVoltage(finalMax)));
                                   }
                               });
+                textView2.post(new Runnable() {
+                    public void run() {
+                        textView2.setText("The voltage reading (min) is: " + Double.toString(convertOneVoltage(finalMin)));
+                    }
+                });
             }
         }).start();
     }

@@ -10,11 +10,14 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.Console;
@@ -51,16 +54,19 @@ public class UserRegistrationActivity extends AppCompatActivity {
         String password = editText2.getText().toString();
         EditText editText3 = findViewById(R.id.editText_user_reg_phone);
         String phone = editText3.getText().toString();
-        CheckBox box1 = findViewById(R.id.checkBox_user_reg_health_worker); // see what checkbox did user check off
+        RadioButton box1 = findViewById(R.id.checkBox_user_reg_health_worker); // see what checkbox did user check off
         Boolean ifHealthWorker = box1.isChecked();
-        CheckBox box2 = findViewById(R.id.checkBox_user_reg_doctor);
+        RadioButton box2 = findViewById(R.id.checkBox_user_reg_doctor);
         Boolean ifDoctor = box2.isChecked();
-        CheckBox box3 = findViewById(R.id.checkBox_user_reg_admin);
+        RadioButton box3 = findViewById(R.id.checkBox_user_reg_admin);
         Boolean ifAdmin = box3.isChecked();
         String userType = ifHealthWorker? "health_worker": ifDoctor? "doctor": ifAdmin? "admin": "health_worker"; // if none selected, default to health worker
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         Boolean canHealthWorkerRegister = sharedPref.getBoolean(getString(R.string.pref_can_health_worker_register), true);
         Log.d("pootie", "health worker can register?" + canHealthWorkerRegister);
+        TextView textView = findViewById(R.id.textView_user_reg_warning);
+
+
         JSONObject userData = new JSONObject();                           // combine and convert them into JSON data format
         try {
             userData = new JSONObject("{\"UserID\":"+userID+",\"Password\":"+password+",\"MobilePhone\":" + phone + ",\"UserType\":"+userType+ "}");
@@ -74,7 +80,19 @@ public class UserRegistrationActivity extends AppCompatActivity {
             Log.e("convert",e.getMessage());
         }
 
-        if (!(ifHealthWorker && !canHealthWorkerRegister)) {              // as long as person is not register for health worker and register setting allow health worker
+        // checking if there is existing user ID
+        boolean existID = false;
+        for (int i = 0; i<existingUsers.length(); i++){
+            if (existingUsers.optJSONObject(i).optString("UserID").equals(userID)){
+                existID = true;
+                textView.setText("There is an existing account with the same user ID!");
+            }
+        }
+        if (!existID) {
+            textView.setText("Checking registration permission and adding to database...");
+        }
+
+        if (!(ifHealthWorker && !canHealthWorkerRegister) && !existID) {              // as long as person is not register for health worker and register setting allow health worker
             existingUsers.put(userData);                                      // combine the old user data with new user data
             writeToFile(FILENAME, existingUsers.toString());                  // save all the user data away
             String dataOut = readFromFile(FILENAME);

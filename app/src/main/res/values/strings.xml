@@ -107,4 +107,5 @@
     <string name="string_load_cartridge">1. Load Cartridge</string>
     <string name="string_prick_finger">2. Prick Finger</string>
     <string name="string_collect_blood">3. Collect Blood</string>
+    <string name="string_voltage_reading_min">The voltage reading (min) is:</string>
 </resources>

@@ -145,12 +145,6 @@ public class UserLookupActivity extends AppCompatActivity {
 
         AutoCompleteTextView ACText = findViewById(R.id.ACTextView_user_lookup_location);     // collect user search location
         String location = ACText.getText().toString();
-        Spinner spinner1 = findViewById(R.id.spinner_user_lookup_user_type);                  // collect conjunction statement
-        String withUserType = spinner1.getSelectedItem().toString();
-        Spinner spinner2 = findViewById(R.id.spinner_user_lookup_training);
-        String withTraining = spinner2.getSelectedItem().toString();
-        Spinner spinner3 = findViewById(R.id.spinner_user_lookup_location);
-        String withLocation = spinner3.getSelectedItem().toString();
 
         // read in JSON file
         String FILENAME = "user_accounts.txt";
@@ -164,78 +158,79 @@ public class UserLookupActivity extends AppCompatActivity {
 
         // create JSON search result
         JSONArray searchResult = new JSONArray();
+        Boolean initialSearch = true;
         if (!userID.equals("")) {                                                  // if user entered a search id
             for (int i = 0; i < existingUsers.length(); i++){
                 if (existingUsers.optJSONObject(i).optString("UserID").equals(userID)){
                     searchResult.put(existingUsers.optJSONObject(i));
                 }
             }
+            initialSearch = false;
         }
         if (ifHealthWorker||ifDoctor||ifAdmin){                              // if user search about user type
             Log.d("Pootie", "checking user type");
-            if (withUserType.equals("And")){
-                JSONArray temp = new JSONArray();
-                if (searchResult.length()!=0){
-                    for (int i = 0; i < searchResult.length(); i++) {
-                        if (userTypeList.contains(searchResult.optJSONObject(i).optString("UserType"))) {
-                            temp.put(searchResult.optJSONObject(i));
-                        }
+            JSONArray temp = new JSONArray();
+            if (!initialSearch){
+                for (int i = 0; i < searchResult.length(); i++) {
+                    if (userTypeList.contains(searchResult.optJSONObject(i).optString("UserType"))) {
+                        temp.put(searchResult.optJSONObject(i));
                     }
                 }
-                searchResult = temp;
             } else {
-                for (int i = 0; i < existingUsers.length(); i++){
-                    if (userTypeList.contains(existingUsers.optJSONObject(i).optString("UserType"))){
-                        existingUsers.put(searchResult.optJSONObject(i));
+                for (int i = 0; i < existingUsers.length(); i++) {
+                    if (userTypeList.contains(existingUsers.optJSONObject(i).optString("UserType"))) {
+                        temp.put(existingUsers.optJSONObject(i));
                     }
                 }
             }
+            searchResult = temp;
+            initialSearch = false;
         }
         if (ifProficient||ifLimited||ifNoTraining){                          // if user search about user training
             Log.d("Pootie", "checking training level");
-            if (withTraining.equals("And")){
-                JSONArray temp = new JSONArray();
-                if (searchResult.length()!=0) {
-                    for (int i = 0; i < searchResult.length(); i++) {
-                        if (searchResult.optJSONObject(i).optString("Training").equals(training)) {
-                            temp.put(searchResult.optJSONObject(i));
-                        }
+            JSONArray temp = new JSONArray();
+            if (!initialSearch) {
+                for (int i = 0; i < searchResult.length(); i++) {
+                    if (searchResult.optJSONObject(i).optString("Training").equals(training)) {
+                        temp.put(searchResult.optJSONObject(i));
                     }
                 }
-                searchResult = temp;
+
             } else {
                 for (int i = 0; i < existingUsers.length(); i++){
-                    if (searchResult.optJSONObject(i).optString("Training").equals(training)){
-                        existingUsers.put(searchResult.optJSONObject(i));
+                    if (existingUsers.optJSONObject(i).optString("Training").equals(training)){
+                        temp.put(existingUsers.optJSONObject(i));
                     }
                 }
             }
+            searchResult = temp;
+            initialSearch = false;
         }
         if (!location.equals("")){                                                 // if user search with location
             Log.d("Pootie", "checking user location");
-            if (withLocation.equals("And")){
-                JSONArray temp = new JSONArray();
-                if (searchResult.length()!=0) {
-                    for (int i = 0; i < searchResult.length(); i++) {
-                        if (searchResult.optJSONObject(i).optString("Location").equals(location)) {
-                            temp.put(searchResult.optJSONObject(i));
-                        }
+            JSONArray temp = new JSONArray();
+            if (!initialSearch) {
+                for (int i = 0; i < searchResult.length(); i++) {
+                    if (searchResult.optJSONObject(i).optString("Location").equals(location)) {
+                        temp.put(searchResult.optJSONObject(i));
                     }
                 }
-                searchResult = temp;
             } else {
                 for (int i = 0; i < existingUsers.length(); i++){
-                    if (searchResult.optJSONObject(i).optString("Location").equals(location)){
-                        existingUsers.put(searchResult.optJSONObject(i));
+                    if (existingUsers.optJSONObject(i).optString("Location").equals(location)){
+                        temp.put(existingUsers.optJSONObject(i));
                     }
                 }
             }
+            searchResult = temp;
+            initialSearch = false;
         }
 
 
         // in the end remove duplicate results
         if (searchResult.length()!=0){
             Log.d("Pootie", "removing duplicate results");
+            Log.d("Pootie", searchResult.toString());
             JSONArray temp = new JSONArray();
             for (int i = 0; i < searchResult.length(); i++) {
                 boolean seen = false;

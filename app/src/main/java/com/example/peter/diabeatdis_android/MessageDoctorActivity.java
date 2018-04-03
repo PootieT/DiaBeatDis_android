@@ -12,15 +12,18 @@ public class MessageDoctorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_doctor);
+        Log.d("Pootie", "the caller id is " + getIntent().getStringExtra("caller"));
     }
 
     /** upon pressing back button, go back to previous activity */
     public void goBack(View view) {
-        String caller     = getIntent().getStringExtra("caller");
+        String caller = getIntent().getStringExtra("caller");
         Class callerClass;
         try {
             callerClass = Class.forName(caller);
             Intent intent = new Intent(this, callerClass);
+            intent.putExtra("PatientID", getIntent().getStringExtra("PatientID"))
+                    .putExtra("caller", getIntent().getStringExtra("caller"));
             startActivity(intent);
         } catch (Exception e){
             Log.e(e.getMessage(),"cannot get caller id");

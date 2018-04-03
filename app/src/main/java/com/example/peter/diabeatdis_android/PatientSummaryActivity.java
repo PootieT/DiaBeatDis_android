@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PatientSummaryActivity extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class PatientSummaryActivity extends AppCompatActivity {
 
         createGraph(patientID);     // creating a line graph with the data
         createProfile(patientID);   // show patient information through textview
+        Log.d("Pootie", "the caller id is " + getIntent().getStringExtra("caller"));
     }
 
     /** this function is called when back to patient lookup button is clicked*/
@@ -111,6 +113,8 @@ public class PatientSummaryActivity extends AppCompatActivity {
                 JSONArray thisPatient = patientRecord.optJSONObject(i).optJSONArray("Data");
                 Date minDate = new Date(thisPatient.optJSONObject(0).optString("Date"));
                 Date maxDate = new Date(thisPatient.optJSONObject(thisPatient.length()-1).optString("Date"));
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Log.d("pootie","the max and min dates are " + formatter.format(maxDate) + " and " + formatter.format(minDate));
                 Log.d("pootie", "the data for this patient is " + thisPatient.toString() + "number of data point is " + thisPatient.length());
                 for (int j = 0; j<thisPatient.length(); j ++) {
                     series.appendData(new DataPoint(new Date(thisPatient.optJSONObject(j).optString("Date")),

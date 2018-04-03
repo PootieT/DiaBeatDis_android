@@ -178,39 +178,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinner_user_lookup_location"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:entries="@array/and_or"
-        android:prompt="@string/prompt_and_or"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@+id/textView17"
-        app:layout_constraintTop_toTopOf="@+id/spinner_user_lookup_training" />
-
-    <Spinner
-        android:id="@+id/spinner_user_lookup_training"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
-        android:entries="@array/and_or"
-        android:prompt="@string/prompt_and_or"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@+id/textView14"
-        app:layout_constraintTop_toTopOf="@+id/spinner_user_lookup_user_type" />
-
-    <Spinner
-        android:id="@+id/spinner_user_lookup_user_type"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginEnd="48dp"
-        android:entries="@array/and_or"
-        android:prompt="@string/prompt_and_or"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/textView18"
-        app:layout_constraintEnd_toEndOf="@+id/textView18"
-        app:layout_constraintTop_toTopOf="@+id/textView18"
-        app:layout_constraintVertical_bias="1.0" />
-
 </android.support.constraint.ConstraintLayout>

@@ -49,7 +49,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/hint_identifier"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -161,47 +161,36 @@
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/checkBox_patient_lookup_if_male" />
 
-    <SeekBar
-        android:id="@+id/seekBar_patient_lookup_min_age"
-        android:layout_width="86dp"
-        android:layout_height="18dp"
-        app:layout_constraintStart_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/string_min"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar_patient_lookup_min_age"
-        app:layout_constraintStart_toStartOf="@+id/seekBar_patient_lookup_min_age"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="56dp"
         android:text="@string/string_max"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar_patient_lookup_max_age"
-        app:layout_constraintStart_toStartOf="@+id/seekBar_patient_lookup_max_age"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar_patient_lookup_min_age" />
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <AutoCompleteTextView
         android:id="@+id/ACTextView_patient_lookup_location"
         style="@android:style/Widget.Holo.AutoCompleteTextView"
         android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintStart_toStartOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <ScrollView
         android:layout_width="576dp"
-        android:layout_height="265dp"
+        android:layout_height="267dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -232,11 +221,26 @@
         </TableLayout>
     </ScrollView>
 
-    <SeekBar
-        android:id="@+id/seekBar_patient_lookup_max_age"
-        android:layout_width="86dp"
-        android:layout_height="18dp"
-        app:layout_constraintStart_toStartOf="@+id/seekBar_patient_lookup_min_age"
+    <EditText
+        android:id="@+id/editText_patient_lookup_min_age"
+        android:layout_width="59dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/textView13"
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <EditText
+        android:id="@+id/editText_patient_lookup_max_age"
+        android:layout_width="59dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/textView11"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
 </android.support.constraint.ConstraintLayout>

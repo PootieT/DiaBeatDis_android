@@ -6,42 +6,58 @@
     android:layout_height="match_parent"
     tools:context="com.example.peter.diabeatdis_android.PatientRegistrationActivity">
 
-    <CheckBox
-        android:id="@+id/checkBox_patient_reg_if_at_risk"
-        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
-        android:layout_width="125dp"
-        android:layout_height="18dp"
-        android:text="@string/check_at_risk"
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
+        android:checkedButton="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/textView26"
         app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_patient_reg_if_diabetic" />
+        app:layout_constraintTop_toTopOf="@+id/textView26"
+        app:layout_constraintVertical_bias="0.6">
 
-    <CheckBox
-        android:id="@+id/checkBox_patient_reg_if_no_risk"
-        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
-        android:layout_width="125dp"
-        android:layout_height="18dp"
-        android:text="@string/check_not_at_risk"
-        app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_patient_reg_if_at_risk" />
+        <RadioButton
+            android:id="@+id/checkBox_patient_reg_if_at_risk"
+            style="@android:style/Widget.Material.Light.CompoundButton.RadioButton"
+            android:layout_width="125dp"
+            android:layout_height="22dp"
+            android:text="@string/check_at_risk"
+            app:layout_constraintStart_toEndOf="@+id/textView26"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox_patient_reg_if_diabetic" />
 
-    <CheckBox
-        android:id="@+id/checkBox_patient_reg_if_unknown_risk"
-        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
-        android:layout_width="125dp"
-        android:layout_height="18dp"
-        android:text="@string/check_unknown"
-        app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_patient_reg_if_no_risk" />
+        <RadioButton
+            android:id="@+id/checkBox_patient_reg_if_no_risk"
+            style="@android:style/Widget.Material.Light.CompoundButton.RadioButton"
+            android:layout_width="125dp"
+            android:layout_height="22dp"
+            android:text="@string/check_not_at_risk"
+            app:layout_constraintStart_toEndOf="@+id/textView26"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox_patient_reg_if_at_risk" />
 
-    <CheckBox
-        android:id="@+id/checkBox_patient_reg_if_diabetic"
-        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
-        android:layout_width="125dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="60dp"
-        android:text="@string/check_diabetic"
-        app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/editText_patient_reg_sex" />
+        <RadioButton
+            android:id="@+id/checkBox_patient_reg_if_unknown_risk"
+            style="@android:style/Widget.Material.Light.CompoundButton.RadioButton"
+            android:layout_width="125dp"
+            android:layout_height="22dp"
+            android:text="@string/check_unknown"
+            app:layout_constraintStart_toEndOf="@+id/textView26"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox_patient_reg_if_no_risk" />
+
+        <RadioButton
+            android:id="@+id/checkBox_patient_reg_if_diabetic"
+            style="@android:style/Widget.Material.Light.CompoundButton.RadioButton"
+            android:layout_width="125dp"
+            android:layout_height="22dp"
+            android:text="@string/check_diabetic"
+            app:layout_constraintStart_toEndOf="@+id/textView26"
+            app:layout_constraintTop_toBottomOf="@+id/editText_patient_reg_sex" />
+    </RadioGroup>
 
     <TextView
         android:id="@+id/textView25"
@@ -173,7 +189,7 @@
         android:layout_marginEnd="52dp"
         android:ems="10"
         android:hint="@string/hint_age"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView25"
         app:layout_constraintEnd_toEndOf="parent"
@@ -202,7 +218,7 @@
         android:layout_marginStart="8dp"
         android:ems="10"
         android:hint="@string/hint_identifier"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView22"
         app:layout_constraintEnd_toStartOf="@+id/textView25"
@@ -229,7 +245,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hint_location"
-        android:inputType="textPersonName"
+        android:inputType="textLongMessage"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView23"
         app:layout_constraintEnd_toEndOf="@+id/editText_patient_reg_name"
@@ -243,7 +259,7 @@
         android:layout_marginStart="8dp"
         android:ems="10"
         android:hint="@string/hint_mobile_number"
-        android:inputType="textPersonName"
+        android:inputType="phone"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView24"
         app:layout_constraintEnd_toEndOf="@+id/editText_patient_reg_location"
@@ -256,7 +272,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hint_sex"
-        android:inputType="textPersonName"
+        android:inputType="text|textShortMessage|textPersonName"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView28"
         app:layout_constraintEnd_toEndOf="@+id/editText_patient_reg_age"
