@@ -1,6 +1,7 @@
 package com.example.peter.diabeatdis_android;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +48,20 @@ public class PatientSelectorActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** Called when the user taps the enter patient data button */
+    public void backToMainMenu(View view) {
+        String caller = getIntent().getStringExtra("caller");
+        Log.d("pootie", "caller is " + caller);
+        Class callerClass;
+        try {
+            callerClass = Class.forName(caller);
+            Intent intent = new Intent(this, callerClass);
+            startActivity(intent);
+        } catch (Exception e){
+            Log.e(e.getMessage(),"cannot get caller id");
+        }
+    }
+
     /** Called when the user taps the message to doctor button, looks for specific patient then
      * goes to the data collection activity with the corresponding patient */
     public void searchPatient(View view) {
@@ -67,11 +82,20 @@ public class PatientSelectorActivity extends AppCompatActivity {
         for (int i = 0; i < existingUsers.length(); i++) {              // loop through all user to see if there is exisiting user ID
             if (existingUsers.optJSONObject(i).optString("PatientID").equals(patientID)){
                 if (purpose.equals("recordData")) {
-                    Intent intent = new Intent(this, DataCollectionActivity.class);
+//                    Intent intent = new Intent(this, DataCollectionActivity.class);
+                    Intent intent = new Intent(this, MainDataCollectionSimple.class);
                     intent.putExtra("PatientID", patientID)
                           .putExtra("caller", getIntent().getStringExtra("caller"));
                     startActivity(intent);
                 } else if (purpose.equals("patientSummary")) {
+                    // increment sharedPreference patient summary clicks
+                    Log.d("Pootie","updating device statistics");
+                    String MY_PREFS_NAME = "deviceStatistics";
+                    SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                    editor.putInt("patientSummaryClicks",getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("patientSummaryClicks", 0)+1);
+                    Log.d("Pootie","patient summary clicks:"+getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("patientSummaryClicks", 0));
+                    editor.apply();
+
                     Intent intent = new Intent(this, PatientSummaryActivity.class);
                     intent.putExtra("PatientID", patientID)
                           .putExtra("caller", getIntent().getStringExtra("caller"));

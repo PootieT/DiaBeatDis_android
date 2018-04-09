@@ -1,6 +1,7 @@
 package com.example.peter.diabeatdis_android;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -121,6 +122,14 @@ public class UserLookupActivity extends AppCompatActivity {
     /** this function queries the result using the search provided by the user, it then calls
      * create table to visualize it*/
     public void searchForUser(View view) {
+        // increment sharedPreference user lookup clicks
+        Log.d("Pootie","updating device statistics");
+        String MY_PREFS_NAME = "deviceStatistics";
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putInt("userLookupClicks",getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("userLookupClicks", 0)+1);
+        Log.d("Pootie","user look up clicks:"+getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("userLookupClicks", 0));
+        editor.apply();
+
         // collect interface data
         EditText editText1 = findViewById(R.id.editText_user_lookup_id);     // collect user search id
         String userID = editText1.getText().toString();
@@ -235,7 +244,7 @@ public class UserLookupActivity extends AppCompatActivity {
             for (int i = 0; i < searchResult.length(); i++) {
                 boolean seen = false;
                 for (int j = i+1; j < searchResult.length(); j++) {
-                    if (!searchResult.optJSONObject(i).optString("UserID").equals(searchResult.optJSONObject(j).optString("UserID"))){
+                    if (searchResult.optJSONObject(i).optString("UserID").equals(searchResult.optJSONObject(j).optString("UserID"))){
                         seen = true;
                     }
                 }

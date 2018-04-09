@@ -54,7 +54,8 @@
             </intent-filter>
             android:screenOrientation="landscape"
         </activity>
-        <activity android:name=".DeviceStatisticsActivity"></activity>
+        <activity android:name=".DeviceStatisticsActivity" />
+        <activity android:name=".MainDataCollectionSimple"></activity>
     </application>
 
 </manifest>

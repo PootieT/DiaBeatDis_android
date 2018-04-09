@@ -1,6 +1,8 @@
 package com.example.peter.diabeatdis_android;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,8 +22,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class PatientSummaryActivity extends AppCompatActivity {
 
@@ -111,21 +116,29 @@ public class PatientSummaryActivity extends AppCompatActivity {
         for (int i = 0; i<patientRecord.length(); i++) {
             if (patientRecord.optJSONObject(i).optString("PatientID").equals(patientID)) {
                 JSONArray thisPatient = patientRecord.optJSONObject(i).optJSONArray("Data");
-                Date minDate = new Date(thisPatient.optJSONObject(0).optString("Date"));
-                Date maxDate = new Date(thisPatient.optJSONObject(thisPatient.length()-1).optString("Date"));
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Log.d("pootie","the max and min dates are " + formatter.format(maxDate) + " and " + formatter.format(minDate));
+//                writeToFile("patient_data.txt","");
+                Date minDate = StringToDate(thisPatient.optJSONObject(0).optString("Date"));
+                Date maxDate = StringToDate(thisPatient.optJSONObject(thisPatient.length()-1).optString("Date"));
+
+                Log.d("pootie","the max and min dates are " + maxDate + " and " + minDate);
                 Log.d("pootie", "the data for this patient is " + thisPatient.toString() + "number of data point is " + thisPatient.length());
+
                 for (int j = 0; j<thisPatient.length(); j ++) {
-                    series.appendData(new DataPoint(new Date(thisPatient.optJSONObject(j).optString("Date")),
+                    series.appendData(new DataPoint(StringToDate(thisPatient.optJSONObject(j).optString("Date")).getTime(),
                             thisPatient.optJSONObject(j).optDouble("BloodGlucose")),
-                            true, 10, true);
-                    Log.d("pootie","this data point is " +  thisPatient.optJSONObject(j).optDouble("BloodGlucose"));
+                            true, 10, false);
+                    Log.d("pootie","this data point "+j+ " is " +  thisPatient.optJSONObject(j).optDouble("BloodGlucose")+" and "+StringToDate(thisPatient.optJSONObject(j).optString("Date")));
                 }
+                series.setColor(Color.GREEN);
+                series.setDrawDataPoints(true);
+                series.setDataPointsRadius(10);
+                series.setThickness(8);
                 graph.addSeries(series);
+
                 // set date label formatter
-                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(PatientSummaryActivity.this));
-                graph.getGridLabelRenderer().setNumHorizontalLabels(5); // only 4 because of the space
+//                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(PatientSummaryActivity.this));
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(PatientSummaryActivity.this, new SimpleDateFormat("dd/MM/yyyy HH")));
+                graph.getGridLabelRenderer().setNumHorizontalLabels(4); // only 4 because of the space
 
                 // set manual x bounds to have nice steps
                 graph.getViewport().setMinX(minDate.getTime());
@@ -135,6 +148,18 @@ public class PatientSummaryActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    public Date StringToDate(String s){
+        Date result = null;
+        try{
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("America/Houston"));
+            result  = dateFormat.parse(s);
+        } catch(ParseException e){
+            e.printStackTrace();
+        }
+        return result ;
     }
 
     /** helper function to read string data into a txt file*/
@@ -166,5 +191,17 @@ public class PatientSummaryActivity extends AppCompatActivity {
         }
 
         return ret;
+    }
+
+    /** helper function to write string data into a txt file*/
+    private void writeToFile(String file, String data) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(file, Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 }

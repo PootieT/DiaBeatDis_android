@@ -2,11 +2,13 @@ package com.example.peter.diabeatdis_android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,6 +63,19 @@ public class DoctorMainActivity extends AppCompatActivity {
     }
 
     /** Called when the user taps the device setting button */
+    public void calibrateDevice(View view) {
+        Intent intent = new Intent(this, DataCollectionActivity.class);
+        intent.putExtra("caller", "com.example.peter.diabeatdis_android.DoctorMainActivity");
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the any button that have not been implemented yet */
+    public void futureWarning(View view) {
+        TextView box = findViewById(R.id.textView_doc_main_message);
+        box.setText("This feature has not been implemented yet, check it out in our future version!");
+    }
+
+    /** Called when the user taps the device setting button */
     public void deviceSetting(View view) {
         Intent intent = new Intent(this, DeviceSettingActivity.class);
         intent.putExtra("caller", "com.example.peter.diabeatdis_android.DoctorMainActivity");
@@ -76,6 +91,14 @@ public class DoctorMainActivity extends AppCompatActivity {
 
     /** called when user taps download data button */
     public void downloadData(View view) {
+        // increment sharedPreference user lookup clicks
+        Log.d("Pootie","updating device statistics");
+        String MY_PREFS_NAME = "deviceStatistics";
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putInt("downloadDataClicks",getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("downloadDataClicks", 0)+1);
+        Log.d("Pootie","download data clicks:"+getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("downloadDataClicks", 0));
+        editor.apply();
+
         String FILENAME = "patient_data.txt";
         JSONArray patientData = new JSONArray();                      // read in patient_data file
         try {
@@ -86,17 +109,8 @@ public class DoctorMainActivity extends AppCompatActivity {
         }
         writeToFile(patientData.toString());
 
-    }
-
-
-    public File getPublicAlbumStorageDir(String albumName) {
-        // Get the directory for the user's public pictures directory.
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS), albumName);
-        if (!file.mkdirs()) {
-            Log.e("", "Directory not created");
-        }
-        return file;
+        TextView message = findViewById(R.id.textView_doc_main_message);
+        message.setText("Patient Data has been copied to publicly available data folder, please access it through USB cable.");
     }
 
     /** helper function to read string data into a txt file*/

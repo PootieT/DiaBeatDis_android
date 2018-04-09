@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 public class DataCollectionAfterActivity extends AppCompatActivity {
 
@@ -51,9 +52,15 @@ public class DataCollectionAfterActivity extends AppCompatActivity {
 
     /** Called when the user taps the change patient button */
     public void testAgain(View view) {
-        Intent intent = new Intent(this, DataCollectionActivity.class);
+        Intent intent = new Intent(this, MainDataCollectionSimple.class);
         intent.putExtra("PatientID", getIntent().getStringExtra("PatientID"))
                 .putExtra("caller", getIntent().getStringExtra("caller"));
         startActivity(intent);
+    }
+
+    /** Called when the user taps the any button that have not been implemented yet */
+    public void futureWarning(View view) {
+        TextView box = findViewById(R.id.textView_admin_main_message);
+        box.setText("This feature has not been implemented yet, check it out in our future version!");
     }
 }

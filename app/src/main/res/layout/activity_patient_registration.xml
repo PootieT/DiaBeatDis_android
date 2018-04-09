@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.example.peter.diabeatdis_android.PatientRegistrationActivity">
 
+    <Button
+        android:id="@+id/button49"
+        android:layout_width="106dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="backToMainMenu"
+        android:text="@string/button_main_menu"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toStartOf="@+id/button47"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <RadioGroup
         android:id="@+id/radioGroup2"
         android:layout_width="wrap_content"
@@ -63,11 +75,12 @@
         android:id="@+id/textView25"
         android:layout_width="75dp"
         android:layout_height="19dp"
+        android:layout_marginStart="8dp"
         android:text="@string/string_age"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText5"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView_patient_reg_id"
         app:layout_constraintEnd_toStartOf="@+id/editText_patient_reg_age"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editText5" />
+        app:layout_constraintStart_toEndOf="@+id/textView_patient_reg_id" />
 
     <TextView
         android:id="@+id/textView26"
@@ -84,9 +97,10 @@
         android:id="@+id/textView28"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="@string/string_sex"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView21"
-        app:layout_constraintStart_toEndOf="@+id/editText5" />
+        app:layout_constraintStart_toEndOf="@+id/editText_patient_reg_name" />
 
     <TextView
         android:id="@+id/textView21"
@@ -124,8 +138,9 @@
         android:layout_marginTop="40dp"
         android:text="@string/string_patient_id"
         app:layout_constraintBottom_toTopOf="@+id/textView21"
-        app:layout_constraintEnd_toStartOf="@+id/editText5"
+        app:layout_constraintEnd_toStartOf="@+id/textView_patient_reg_id"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread" />
@@ -139,7 +154,7 @@
         android:onClick="messageDoctor"
         android:text="@string/button_message_to_doctor"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintEnd_toStartOf="@+id/button47"
+        app:layout_constraintEnd_toStartOf="@+id/button49"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -197,35 +212,6 @@
         app:layout_constraintStart_toEndOf="@+id/textView25" />
 
     <EditText
-        android:id="@+id/editText5"
-        style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView22"
-        app:layout_constraintEnd_toStartOf="@+id/textView25"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView22" />
-
-    <EditText
-        android:id="@+id/editText_patient_reg_id"
-        style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="@string/hint_identifier"
-        android:inputType="number"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView22"
-        app:layout_constraintEnd_toStartOf="@+id/textView25"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView22" />
-
-    <EditText
         android:id="@+id/editText_patient_reg_name"
         style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
         android:layout_width="0dp"
@@ -235,8 +221,8 @@
         android:inputType="textPersonName"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView21"
-        app:layout_constraintEnd_toEndOf="@+id/editText_patient_reg_id"
-        app:layout_constraintStart_toStartOf="@+id/editText_patient_reg_id" />
+        app:layout_constraintEnd_toEndOf="@+id/textView_patient_reg_id"
+        app:layout_constraintStart_toStartOf="@+id/textView_patient_reg_id" />
 
     <EditText
         android:id="@+id/editText_patient_reg_location"
@@ -265,28 +251,34 @@
         app:layout_constraintEnd_toEndOf="@+id/editText_patient_reg_location"
         app:layout_constraintStart_toEndOf="@+id/textView24" />
 
-    <EditText
-        android:id="@+id/editText_patient_reg_sex"
-        style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_sex"
-        android:inputType="text|textShortMessage|textPersonName"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView28"
-        app:layout_constraintEnd_toEndOf="@+id/editText_patient_reg_age"
-        app:layout_constraintStart_toEndOf="@+id/textView28" />
-
     <TextView
         android:id="@+id/textView_patient_reg_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="8dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/editText_patient_reg_id"
+        app:layout_constraintBottom_toTopOf="@+id/textView_patient_reg_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_patient_reg_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView22"
+        app:layout_constraintEnd_toStartOf="@+id/textView25"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView22" />
+
+    <Spinner
+        android:id="@+id/spinner_patient_reg_sex"
+        android:layout_width="150dp"
+        android:layout_height="22dp"
+        android:entries="@array/sex_options"
+        app:layout_constraintStart_toEndOf="@+id/textView28"
+        app:layout_constraintTop_toTopOf="@+id/textView28" />
 
 </android.support.constraint.ConstraintLayout>

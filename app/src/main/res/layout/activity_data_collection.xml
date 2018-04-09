@@ -13,10 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/string_prick_finger"
-        app:layout_constraintEnd_toEndOf="@+id/gifTextView1"
+        app:layout_constraintEnd_toEndOf="@+id/gifTextView_data_collection_step2"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/gifTextView1"
-        app:layout_constraintTop_toBottomOf="@+id/gifTextView1" />
+        app:layout_constraintStart_toStartOf="@+id/gifTextView_data_collection_step2"
+        app:layout_constraintTop_toBottomOf="@+id/gifTextView_data_collection_step2" />
 
     <TextView
         android:id="@+id/textView37"
@@ -25,21 +25,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/string_collect_blood"
-        app:layout_constraintEnd_toEndOf="@+id/gifTextView2"
-        app:layout_constraintStart_toStartOf="@+id/gifTextView2"
-        app:layout_constraintTop_toBottomOf="@+id/gifTextView2" />
-
-    <Button
-        android:id="@+id/button53"
-        android:layout_width="160dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="messageDoctor"
-        android:text="@string/button_message_to_doctor"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintEnd_toStartOf="@+id/button70"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/gifTextView_data_collection_step3"
+        app:layout_constraintStart_toStartOf="@+id/gifTextView_data_collection_step3"
+        app:layout_constraintTop_toBottomOf="@+id/gifTextView_data_collection_step3" />
 
     <Button
         android:id="@+id/button70"
@@ -63,31 +51,6 @@
         android:text="@string/button_logout"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button49"
-        android:layout_width="120dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="44dp"
-        android:onClick="recordVoltage"
-        android:text="@string/button_record_voltage"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintEnd_toEndOf="@+id/button_data_collection_show_voltage"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button_data_collection_show_voltage"
-        app:layout_constraintTop_toBottomOf="@+id/textView_data_collection_show_voltage" />
-
-    <Button
-        android:id="@+id/button68"
-        android:layout_width="120dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="8dp"
-        android:onClick="changePatient"
-        android:text="@string/button_change_patient"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -141,7 +104,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <pl.droidsonroids.gif.GifTextView
-        android:id="@+id/gifTextView"
+        android:id="@+id/gifTextView_data_collection_step1"
         android:layout_width="121dp"
         android:layout_height="160dp"
         android:layout_marginStart="72dp"
@@ -157,28 +120,28 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/string_load_cartridge"
-        app:layout_constraintEnd_toEndOf="@+id/gifTextView"
-        app:layout_constraintStart_toStartOf="@+id/gifTextView"
-        app:layout_constraintTop_toBottomOf="@+id/gifTextView" />
+        app:layout_constraintEnd_toEndOf="@+id/gifTextView_data_collection_step1"
+        app:layout_constraintStart_toStartOf="@+id/gifTextView_data_collection_step1"
+        app:layout_constraintTop_toBottomOf="@+id/gifTextView_data_collection_step1" />
 
     <pl.droidsonroids.gif.GifTextView
-        android:id="@+id/gifTextView1"
+        android:id="@+id/gifTextView_data_collection_step2"
         android:layout_width="121dp"
         android:layout_height="160dp"
         android:layout_marginStart="80dp"
         android:layout_marginTop="284dp"
         android:background="@drawable/finger_prick"
-        app:layout_constraintStart_toEndOf="@+id/gifTextView"
+        app:layout_constraintStart_toEndOf="@+id/gifTextView_data_collection_step1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <pl.droidsonroids.gif.GifTextView
-        android:id="@+id/gifTextView2"
+        android:id="@+id/gifTextView_data_collection_step3"
         android:layout_width="121dp"
         android:layout_height="160dp"
         android:layout_marginStart="80dp"
         android:layout_marginTop="284dp"
         android:background="@drawable/collect_blood"
-        app:layout_constraintStart_toEndOf="@+id/gifTextView1"
+        app:layout_constraintStart_toEndOf="@+id/gifTextView_data_collection_step2"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

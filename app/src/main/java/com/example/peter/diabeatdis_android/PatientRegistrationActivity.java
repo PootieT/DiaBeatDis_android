@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -28,6 +29,21 @@ public class PatientRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_registration);
+
+        String FILENAME = "patient_registry.txt";
+        TextView userIDView = findViewById(R.id.textView_patient_reg_id);
+
+        JSONArray existingUsers = new JSONArray();                        // read in existing JSON file for user database
+        try {
+            existingUsers = new JSONArray(readFromFile(FILENAME));
+        } catch (JSONException e) {
+            Log.e("convert",e.getMessage());
+        }
+
+        // determine the next smallest user ID from the user account database
+        int patientID = 1;
+        while (ifInDatabase(patientID, existingUsers)) {patientID++;}
+        userIDView.setText(String.valueOf(patientID));
     }
 
     /** Called when the user taps the message to doctor button */
@@ -49,10 +65,24 @@ public class PatientRegistrationActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** Called when the user taps the enter patient data button */
+    public void backToMainMenu(View view) {
+        String caller = getIntent().getStringExtra("caller");
+        Log.d("pootie", "caller is " + caller);
+        Class callerClass;
+        try {
+            callerClass = Class.forName(caller);
+            Intent intent = new Intent(this, callerClass);
+            startActivity(intent);
+        } catch (Exception e){
+            Log.e(e.getMessage(),"cannot get caller id");
+        }
+    }
+
     /** Called when the user taps the enter button */
     public void registerNewPatient(View view) {
         String FILENAME = "patient_registry.txt";
-        EditText editText1 = findViewById(R.id.editText_patient_reg_id);     // collect user input id, pass word, and phone number
+        TextView editText1 = findViewById(R.id.textView_patient_reg_id);     // collect user input id, pass word, and phone number
         String patientID = editText1.getText().toString();
         EditText editText2 = findViewById(R.id.editText_patient_reg_age);
         String age = editText2.getText().toString();
@@ -64,8 +94,10 @@ public class PatientRegistrationActivity extends AppCompatActivity {
         EditText editText5 = findViewById(R.id.editText_patient_reg_name);
         String name = editText5.getText().toString();
         name = name.replaceAll(" ", "_").replaceAll(",","_").toLowerCase();
-        EditText editText6 = findViewById(R.id.editText_patient_reg_sex);
-        String sex = editText6.getText().toString();
+        Spinner spinner = findViewById(R.id.spinner_patient_reg_sex);
+        String sex = spinner.getSelectedItem().toString().substring(0,1).toUpperCase();
+        Log.d("Pootie","sex = "+sex);
+
         RadioButton box1 = findViewById(R.id.checkBox_patient_reg_if_diabetic);
         Boolean ifDiabetic = box1.isChecked();
         RadioButton box2 = findViewById(R.id.checkBox_patient_reg_if_at_risk);
@@ -77,8 +109,9 @@ public class PatientRegistrationActivity extends AppCompatActivity {
         String riskCategory = ifDiabetic? "diabetic":ifAtRisk?"at_risk":ifNoRisk?"no_risk":ifUnknownRisk?"unknown_risk":"unknown_risk";
         TextView textView = findViewById(R.id.textView_patient_reg_error);
 
-
-        if (!patientID.equals("") && !age.equals("") && !location.equals("") && !mobile.equals("") && !name.equals("") && !sex.equals("")) {
+        if (!age.equals("") && (Integer.parseInt(age) <=0 ||Integer.parseInt(age) > 150)) {
+            textView.setText("Please use your actual age between 1-150!");
+        } else if (!age.equals("") && !location.equals("") && !mobile.equals("") && !name.equals("") && !sex.equals("")) {
             JSONArray existingPatients = new JSONArray();                      // read in existing JSON file for user database
             try {
                 existingPatients = new JSONArray(readFromFile(FILENAME));
@@ -109,13 +142,23 @@ public class PatientRegistrationActivity extends AppCompatActivity {
                 Log.d("success: ", dataOut);
                 System.out.print(dataOut);
 
-                Intent intent = new Intent(this, DataCollectionActivity.class);
+                Intent intent = new Intent(this, MainDataCollectionSimple.class);
                 intent.putExtra("patientID", patientID);
                 startActivity(intent);
             }
         } else {
             textView.setText("Please fill out all information.");
         }
+    }
+
+    /** helper function to determine if an ID exist in a user database*/
+    private Boolean ifInDatabase(int userID,JSONArray database){
+        for (int i = 0; i < database.length(); i++){
+            if (database.optJSONObject(i).optString("PatientID").equals(String.valueOf(userID))){
+                return true;
+            }
+        }
+        return false;
     }
 
     /** helper function to write string data into a txt file*/

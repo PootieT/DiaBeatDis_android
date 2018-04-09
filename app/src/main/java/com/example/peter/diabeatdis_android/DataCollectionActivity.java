@@ -3,6 +3,7 @@ package com.example.peter.diabeatdis_android;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
@@ -29,10 +30,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.max;
 
 public class DataCollectionActivity extends AppCompatActivity {
 
@@ -62,98 +67,16 @@ public class DataCollectionActivity extends AppCompatActivity {
         }
     }
 
-    /** Called when the user taps the message to doctor button */
-    public void messageDoctor(View view) {
-        Intent intent = new Intent(this, MessageDoctorActivity.class);
-        intent.putExtra("caller", getIntent().getStringExtra("caller"));
-        startActivity(intent);
-    }
-
-    /** Called when the user taps the change patient button */
-    public void changePatient(View view) {
-        Intent intent = new Intent(this, PatientSelectorActivity.class);
-        intent.putExtra("caller", getIntent().getStringExtra("caller"));
-        startActivity(intent);
-    }
-
     /** display the voltage inputted into the tablet with click of button */
     public void showVoltage(View view) {
         // do something to read the voltage
         readVoltage();
     }
 
-    /** This function records the voltage value shown in the textview into the database */
-    public void recordVoltage(View view) {
-        String FILENAME = "patient_data.txt";                                 // establish constants
-        String patientID = getIntent().getStringExtra("PatientID");
-        int EMERGENCY_BLOOD_GLUCOSE = 300;
-        Log.d("Pootie", "recording data for patient " + patientID);
-
-        double reading = recordVoltage();                                     // read in the voltage
-        Log.d("Pootie", "the read voltage is " + reading);
-
-        JSONArray patientRecord = new JSONArray();                      // read in patient_data file
-        try {
-            patientRecord = new JSONArray(readFromFile(FILENAME));
-        } catch (JSONException e) {
-            Log.e("convert", e.getMessage());
-            patientRecord = new JSONArray();
-        }
-
-        // create new JSONobject based on data collected today
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        String formattedDate = formatter.format(date);
-        Log.d("Pootie", "the date varible is " + formattedDate);
-
-        JSONObject newData = new JSONObject();
-        try {
-            newData.put("Date", formattedDate).put("BloodGlucose", reading);
-        } catch (JSONException e) {
-            newData = new JSONObject();
-        }
-
-        // find the patient record, if found append to rest, if not, start a new JSON object
-        Log.d("Pootie", "Looping through patient record to find the same patient...");
-//        Log.d("pootie","current patient record: " + patientRecord.toString());
-        boolean found = false;
-        for (int i = 0; i < patientRecord.length(); i++) {
-            if (patientRecord.optJSONObject(i).optString("PatientID").equals(patientID)) {
-                patientRecord.optJSONObject(i).optJSONArray("Data").put(newData);
-                Log.d("pootie","new patient record: " + patientRecord.toString());
-                found = true;
-            }
-        }
-        if (!found) {
-            Log.d("Pootie","Patient not found, creating new patient record...");
-            JSONObject newPatient = new JSONObject();
-            try {
-                newPatient.put("PatientID", patientID).put("Data", new JSONArray().put(newData));
-                patientRecord.put(newPatient);
-                Log.d("pootie","new patient record: " + patientRecord.toString());
-            } catch (JSONException e) {
-                newPatient = new JSONObject();
-            }
-        }
-        writeToFile(FILENAME, patientRecord.toString());
-
-        if (reading < EMERGENCY_BLOOD_GLUCOSE) {
-            Intent intent = new Intent(this, DataCollectionAfterActivity.class);
-            intent.putExtra("PatientID",patientID)
-                  .putExtra("caller",getIntent().getStringExtra("caller"));
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(this, DataCollectionEmergencyActivity.class);
-            intent.putExtra("PatientID",patientID)
-                  .putExtra("caller",getIntent().getStringExtra("caller"));
-            startActivity(intent);
-        }
-    }
-
     /** this function converts one voltage reading into blood glucose level. This is a dummy
      * function because we technically need multiple wavelength */
-    private double convertOneVoltage(double voltage) {
-        return voltage * 1.0 + 0.0;
+    private double convertOneVoltage(double minVoltage, double maxVoltage) {
+        return 0.5047 + 0.0574*maxVoltage + 0.0260*minVoltage;
     }
 
     /** this function reads in the voltage signal from the audio jack and display the data as a
@@ -263,65 +186,18 @@ public class DataCollectionActivity extends AppCompatActivity {
                 // display the max of the data
                 textView.post(new Runnable() {
                                   public void run() {
-                        textView.setText("The voltage reading is: " + Double.toString(convertOneVoltage(finalMax)));
+                        textView.setText("The voltage reading max/min is: " + Double.toString(finalMax)+" and "+Double.toString(finalMin));
                                   }
                               });
+                BigDecimal bd = new BigDecimal(convertOneVoltage(finalMin,finalMax));
+                bd = bd.round(new MathContext(4));
+                final double rounded = bd.doubleValue();
                 textView2.post(new Runnable() {
                     public void run() {
-                        textView2.setText("The voltage reading (min) is: " + Double.toString(convertOneVoltage(finalMin)));
+                        textView2.setText("The input voltage calculated: "+rounded);
                     }
                 });
             }
         }).start();
-    }
-
-    private double recordVoltage() {
-        TextView textView = findViewById(R.id.textView_data_collection_show_voltage);
-        String voltageString =  textView.getText().toString();
-        double reading = Double.parseDouble(voltageString.substring(voltageString.indexOf(":")+1,voltageString.length())); // convert to double
-        return reading;
-    }
-
-    /** helper function to write string data into a txt file*/
-    private void writeToFile(String file, String data) {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(file, Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
-    /** helper function to read string data into a txt file*/
-    private String readFromFile(String file) {
-
-        String ret = "";
-
-        try {
-            InputStream inputStream = openFileInput(file);
-
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        return ret;
     }
 }

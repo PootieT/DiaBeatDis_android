@@ -1,6 +1,7 @@
 package com.example.peter.diabeatdis_android;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -165,6 +166,13 @@ public class PatientLookupActivity extends AppCompatActivity {
     /** this function queries the result using the search provided by the user, it then calls
      * create table to visualize it*/
     public void searchForPatients(View view) {
+        // increment sharedPreference user lookup clicks
+        Log.d("Pootie","updating device statistics");
+        String MY_PREFS_NAME = "deviceStatistics";
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putInt("patientLookupClicks",getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("patientLookupClicks", 0)+1);
+        Log.d("Pootie","Patient lookup clicks:"+getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("patientLookupClicks", 0));
+        editor.apply();
 
         // read in JSON file
         String FILENAME = "patient_registry.txt";
@@ -198,11 +206,11 @@ public class PatientLookupActivity extends AppCompatActivity {
         if (ifNotAtRisk){patientRiskList.add("not_at_risk");}
         if (ifUnknown){patientRiskList.add("unknown");}
 
-        CheckBox Box5 = findViewById(R.id.checkBox_patient_lookup_if_male);    // collect patient sex
-        Boolean ifMale = Box5.isChecked();
-        CheckBox Box6 = findViewById(R.id.checkBox_patient_lookup_if_female);
-        Boolean ifFemale = Box6.isChecked();
-        String sex = ifMale?"M":ifFemale?"F":"";
+        Spinner spinner = findViewById(R.id.spinner_patient_lookup_sex);      // collect patient sex
+        String sex = spinner.getSelectedItem().toString().substring(0,1).toUpperCase();
+
+        EditText nameEdit = findViewById(R.id.editText_patient_lookup_name);   // collect patient name
+        String name = nameEdit.getText().toString();
 
         AutoCompleteTextView ACText = findViewById(R.id.ACTextView_patient_lookup_location);     // collect user search location
         String location = ACText.getText().toString();
@@ -244,7 +252,7 @@ public class PatientLookupActivity extends AppCompatActivity {
             searchResult = temp;
             initialSearch = false;
         }
-        if (ifMale||ifFemale){                                            // if user search about patient sex
+        if (sex.equals("M")||sex.equals("O")||sex.equals("F")){                                            // if user search about patient sex
             Log.d("Pootie", "checking sex");
             JSONArray temp = new JSONArray();
             if (!initialSearch) {
@@ -275,6 +283,25 @@ public class PatientLookupActivity extends AppCompatActivity {
             } else {
                 for (int i = 0; i < existingUsers.length(); i++) {
                     if (existingUsers.optJSONObject(i).optString("Location").contains(location)) {
+                        temp.put(existingUsers.optJSONObject(i));
+                    }
+                }
+            }
+            searchResult = temp;
+            initialSearch = false;
+        }
+        if (!name.equals("")){                                                 // if user search with location
+            Log.d("Pootie", "checking user name");
+            JSONArray temp = new JSONArray();
+            if (!initialSearch) {
+                for (int i = 0; i < searchResult.length(); i++) {
+                    if (searchResult.optJSONObject(i).optString("Name").contains(name)) {
+                        temp.put(searchResult.optJSONObject(i));
+                    }
+                }
+            } else {
+                for (int i = 0; i < existingUsers.length(); i++) {
+                    if (existingUsers.optJSONObject(i).optString("Name").contains(name)) {
                         temp.put(existingUsers.optJSONObject(i));
                     }
                 }

@@ -26,6 +26,13 @@ public class HealthWorkerMainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** Called when the user taps the device setting button */
+    public void calibrateDevice(View view) {
+        Intent intent = new Intent(this, DataCollectionActivity.class);
+        intent.putExtra("caller", "com.example.peter.diabeatdis_android.HealthWorkerMainActivity");
+        startActivity(intent);
+    }
+
     /** Called when the user taps the enter patient data button */
     public void enterPatientData(View view) {
         Intent intent = new Intent(this, PatientSelectorActivity.class);

@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_age"
-        app:layout_constraintEnd_toStartOf="@+id/textView10"
+        app:layout_constraintEnd_toStartOf="@+id/textView42"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/editText_patient_lookup_id" />
@@ -94,7 +94,7 @@
         android:text="@string/string_location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintStart_toEndOf="@+id/textView42"
         app:layout_constraintTop_toBottomOf="@+id/editText_patient_lookup_id" />
 
     <TextView
@@ -104,6 +104,7 @@
         android:text="@string/string_risk_catagories"
         app:layout_constraintEnd_toStartOf="@+id/textView7"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_patient_lookup_id" />
 
@@ -128,7 +129,7 @@
     <CheckBox
         android:id="@+id/checkBox_patient_lookup_if_unknown"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
-        android:layout_width="88dp"
+        android:layout_width="95dp"
         android:layout_height="18dp"
         android:text="@string/check_unknown"
         app:layout_constraintStart_toStartOf="@+id/checkBox_patient_lookup_if_not_at_risk"
@@ -142,24 +143,6 @@
         android:text="@string/check_diabetic"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <CheckBox
-        android:id="@+id/checkBox_patient_lookup_if_male"
-        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
-        android:layout_width="88dp"
-        android:layout_height="18dp"
-        android:text="@string/check_male"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-    <CheckBox
-        android:id="@+id/checkBox_patient_lookup_if_female"
-        style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
-        android:layout_width="88dp"
-        android:layout_height="18dp"
-        android:text="@string/check_female"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_patient_lookup_if_male" />
 
     <TextView
         android:id="@+id/textView13"
@@ -242,5 +225,34 @@
         app:layout_constraintEnd_toEndOf="@+id/textView11"
         app:layout_constraintStart_toStartOf="@+id/textView11"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_name"
+        app:layout_constraintEnd_toStartOf="@+id/textView10"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/editText_patient_lookup_id" />
+
+    <EditText
+        android:id="@+id/editText_patient_lookup_name"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/textView42"
+        app:layout_constraintTop_toBottomOf="@+id/textView42" />
+
+    <Spinner
+        android:id="@+id/spinner_patient_lookup_sex"
+        android:layout_width="163dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="8dp"
+        android:entries="@array/sex_options"
+        app:layout_constraintEnd_toEndOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
 </android.support.constraint.ConstraintLayout>

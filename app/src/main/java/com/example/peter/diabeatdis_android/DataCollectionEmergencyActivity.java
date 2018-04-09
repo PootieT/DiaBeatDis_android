@@ -29,6 +29,14 @@ public class DataCollectionEmergencyActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** Called when the user taps the test again button */
+    public void testAgain(View view) {
+        Intent intent = new Intent(this, MainDataCollectionSimple.class);
+        intent.putExtra("PatientID", getIntent().getStringExtra("PatientID"))
+                .putExtra("caller", getIntent().getStringExtra("caller"));
+        startActivity(intent);
+    }
+
     /** Called when the user taps the change patient button */
     public void changePatient(View view) {
         Intent intent = new Intent(this, PatientSelectorActivity.class);

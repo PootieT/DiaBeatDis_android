@@ -95,6 +95,7 @@
         android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_marginTop="252dp"
+        android:onClick="calibrateDevice"
         android:text="@string/button_calibrate_device"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,6 +106,7 @@
         android:id="@+id/button11"
         android:layout_width="150dp"
         android:layout_height="40dp"
+        android:onClick="futureWarning"
         android:text="@string/button_view_messages"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toStartOf="@+id/button12"
@@ -119,6 +121,7 @@
         android:layout_height="40dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
+        android:onClick="futureWarning"
         android:text="@string/button_user_summaries"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBottom_toTopOf="@+id/button10"
@@ -138,4 +141,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button16" />
+
+    <TextView
+        android:id="@+id/textView_doc_main_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button10" />
 </android.support.constraint.ConstraintLayout>

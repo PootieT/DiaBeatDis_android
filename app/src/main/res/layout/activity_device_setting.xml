@@ -10,7 +10,7 @@
         android:id="@+id/checkBox17"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
-        android:layout_height="18dp"
+        android:layout_height="20dp"
         android:text="@string/check_weight"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/checkBox16" />
@@ -19,7 +19,7 @@
         android:id="@+id/checkBox18"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
-        android:layout_height="18dp"
+        android:layout_height="20dp"
         android:text="@string/check_height"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/checkBox17" />
@@ -28,7 +28,7 @@
         android:id="@+id/checkBox19"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
-        android:layout_height="18dp"
+        android:layout_height="20dp"
         android:text="@string/check_diet"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/checkBox18" />
@@ -55,7 +55,7 @@
         android:id="@+id/checkBox_device_setting_user_data"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
-        android:layout_height="19dp"
+        android:layout_height="20dp"
         android:text="@string/check_user_data"
         app:layout_constraintStart_toStartOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/checkBox_device_setting_patient_data" />
@@ -64,7 +64,7 @@
         android:id="@+id/checkBox21"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
-        android:layout_height="18dp"
+        android:layout_height="20dp"
         android:text="@string/check_messages"
         app:layout_constraintStart_toStartOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
@@ -73,7 +73,7 @@
         android:id="@+id/checkBox22"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
-        android:layout_height="18dp"
+        android:layout_height="20dp"
         android:layout_marginStart="24dp"
         android:text="@string/check_images"
         app:layout_constraintStart_toStartOf="@+id/textView15"
@@ -83,7 +83,7 @@
         android:id="@+id/checkBox24"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
-        android:layout_height="18dp"
+        android:layout_height="20dp"
         android:layout_marginStart="24dp"
         android:text="@string/check_text"
         app:layout_constraintStart_toStartOf="@+id/textView15"
@@ -103,7 +103,7 @@
         android:id="@+id/checkBox16"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
-        android:layout_height="18dp"
+        android:layout_height="20dp"
         android:text="@string/check_triglyceride"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/checkBox10" />
@@ -112,7 +112,7 @@
         android:id="@+id/checkBox10"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="140dp"
-        android:layout_height="18dp"
+        android:layout_height="20dp"
         android:text="@string/check_blood_pressure"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/checkBox15" />
@@ -120,8 +120,8 @@
     <CheckBox
         android:id="@+id/checkBox15"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
-        android:layout_width="129dp"
-        android:layout_height="32dp"
+        android:layout_width="178dp"
+        android:layout_height="20dp"
         android:text="@string/button_waist_circumference"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/checkBox14" />
@@ -130,7 +130,7 @@
         android:id="@+id/checkBox14"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
         android:layout_width="125dp"
-        android:layout_height="18dp"
+        android:layout_height="20dp"
         android:text="@string/check_glucose_ir"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />

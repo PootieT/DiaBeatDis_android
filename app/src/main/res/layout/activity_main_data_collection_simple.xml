@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.peter.diabeatdis_android.MainDataCollectionSimple">
+
+    <TextView
+        android:id="@+id/textView_data_collection_simple_show_voltage"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_voltage_reading"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/button81"
+        app:layout_constraintTop_toBottomOf="@+id/button81" />
+
+    <Button
+        android:id="@+id/button81"
+        android:layout_width="120dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="232dp"
+        android:onClick="showVoltage"
+        android:text="@string/button_record_voltage"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/gifTextView_data_collection_step3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button80"
+        android:layout_width="120dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="8dp"
+        android:onClick="changePatient"
+        android:text="@string/button_change_patient"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button79"
+        android:layout_width="160dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="messageDoctor"
+        android:text="@string/button_message_to_doctor"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toStartOf="@+id/button78"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button78"
+        android:layout_width="106dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="backToMainMenu"
+        android:text="@string/button_main_menu"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toStartOf="@+id/button77"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button77"
+        android:layout_width="92dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="logOut"
+        android:text="@string/button_logout"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifTextView_data_collection_step1"
+        android:layout_width="193dp"
+        android:layout_height="261dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="116dp"
+        android:background="@drawable/load_cartrige"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifTextView_data_collection_step2"
+        android:layout_width="193dp"
+        android:layout_height="261dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="116dp"
+        android:background="@drawable/finger_prick"
+        app:layout_constraintStart_toEndOf="@+id/gifTextView_data_collection_step1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifTextView_data_collection_step3"
+        android:layout_width="193dp"
+        android:layout_height="261dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="116dp"
+        android:background="@drawable/collect_blood"
+        app:layout_constraintStart_toEndOf="@+id/gifTextView_data_collection_step2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/string_follow_steps"
+        app:layout_constraintBottom_toTopOf="@+id/gifTextView_data_collection_step2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_data_collection_simple_step1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="firstStepChecked"
+        android:text="@string/check_collection_step_one"
+        app:layout_constraintEnd_toEndOf="@+id/gifTextView_data_collection_step1"
+        app:layout_constraintStart_toStartOf="@+id/gifTextView_data_collection_step1"
+        app:layout_constraintTop_toBottomOf="@+id/gifTextView_data_collection_step1" />
+
+    <Button
+        android:id="@+id/button_data_collection_simple_step2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="secondStepChecked"
+        android:text="@string/check_collection_step_two"
+        app:layout_constraintEnd_toEndOf="@+id/gifTextView_data_collection_step2"
+        app:layout_constraintStart_toStartOf="@+id/gifTextView_data_collection_step2"
+        app:layout_constraintTop_toBottomOf="@+id/gifTextView_data_collection_step2" />
+
+    <Button
+        android:id="@+id/button_data_collection_simple_step3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="thirdStepChecked"
+        android:text="@string/check_collection_step_three"
+        app:layout_constraintEnd_toEndOf="@+id/gifTextView_data_collection_step3"
+        app:layout_constraintStart_toStartOf="@+id/gifTextView_data_collection_step3"
+        app:layout_constraintTop_toBottomOf="@+id/gifTextView_data_collection_step3" />
+
+    <TextView
+        android:id="@+id/textView_data_collection_simple_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_data_collection_simple_show_voltage"
+        app:layout_constraintStart_toStartOf="@+id/textView_data_collection_simple_show_voltage"
+        app:layout_constraintTop_toBottomOf="@+id/textView_data_collection_simple_show_voltage" />
+
+</android.support.constraint.ConstraintLayout>

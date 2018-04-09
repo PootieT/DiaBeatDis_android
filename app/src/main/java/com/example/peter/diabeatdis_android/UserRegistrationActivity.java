@@ -35,6 +35,21 @@ public class UserRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
+
+        String FILENAME = "user_accounts.txt";
+        TextView userIDView = findViewById(R.id.textView_user_reg_id);
+
+        JSONArray existingUsers = new JSONArray();                        // read in existing JSON file for user database
+        try {
+            existingUsers = new JSONArray(readFromFile(FILENAME));
+        } catch (JSONException e) {
+            Log.e("convert",e.getMessage());
+        }
+
+        // determine the next smallest user ID from the user account database
+        int userID = 1;
+        while (ifInDatabase(userID, existingUsers)) {userID++;}
+        userIDView.setText(String.valueOf(userID));
     }
 
     /** Called when the user taps the back button */
@@ -48,8 +63,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
      * JSONarray format*/
     public void registerNewUser(View view) {
         String FILENAME = "user_accounts.txt";
-        EditText editText1 = findViewById(R.id.editText_user_reg_ID);     // collect user input id, pass word, and phone number
-        String userID = editText1.getText().toString();
+        TextView userIDView = findViewById(R.id.textView_user_reg_id);
+        String userID = userIDView.getText().toString();
         EditText editText2 = findViewById(R.id.editText_user_reg_password);
         String password = editText2.getText().toString();
         EditText editText3 = findViewById(R.id.editText_user_reg_phone);
@@ -64,15 +79,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         Boolean canHealthWorkerRegister = sharedPref.getBoolean(getString(R.string.pref_can_health_worker_register), true);
         Log.d("pootie", "health worker can register?" + canHealthWorkerRegister);
-        TextView textView = findViewById(R.id.textView_user_reg_warning);
+        TextView warning = findViewById(R.id.textView_user_reg_warning);
 
-
-        JSONObject userData = new JSONObject();                           // combine and convert them into JSON data format
-        try {
-            userData = new JSONObject("{\"UserID\":"+userID+",\"Password\":"+password+",\"MobilePhone\":" + phone + ",\"UserType\":"+userType+ "}");
-        } catch (JSONException e) {
-            userData = new JSONObject();
-        }
         JSONArray existingUsers = new JSONArray();                        // read in existing JSON file for user database
         try {
             existingUsers = new JSONArray(readFromFile(FILENAME));
@@ -80,19 +88,15 @@ public class UserRegistrationActivity extends AppCompatActivity {
             Log.e("convert",e.getMessage());
         }
 
-        // checking if there is existing user ID
-        boolean existID = false;
-        for (int i = 0; i<existingUsers.length(); i++){
-            if (existingUsers.optJSONObject(i).optString("UserID").equals(userID)){
-                existID = true;
-                textView.setText("There is an existing account with the same user ID!");
-            }
-        }
-        if (!existID) {
-            textView.setText("Checking registration permission and adding to database...");
+        JSONObject userData = new JSONObject();                           // combine and convert them into JSON data format
+        try {
+            userData = new JSONObject("{\"UserID\":"+userID+",\"Password\":"+password+",\"MobilePhone\":" + phone + ",\"UserType\":"+userType+ "}");
+        } catch (JSONException e) {
+            userData = new JSONObject();
         }
 
-        if (!(ifHealthWorker && !canHealthWorkerRegister) && !existID) {              // as long as person is not register for health worker and register setting allow health worker
+
+        if (!(ifHealthWorker && !canHealthWorkerRegister) && !password.equals("") && !phone.equals("")) { // as long as person is not register for health worker and register setting allow health worker
             existingUsers.put(userData);                                      // combine the old user data with new user data
             writeToFile(FILENAME, existingUsers.toString());                  // save all the user data away
             String dataOut = readFromFile(FILENAME);
@@ -103,13 +107,27 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, HealthWorkerMainActivity.class);
                 startActivity(intent);
             } else if (userType == "doctor") {
+                warning.setText("Future registration of doctor account will require passward granted by authorities.");
                 Intent intent = new Intent(this, DoctorMainActivity.class);
                 startActivity(intent);
             } else if (userType == "admin") {
+                warning.setText("Future registration of admin account will require passward granted by authorities.");
                 Intent intent = new Intent(this, AdminMainActivity.class);
                 startActivity(intent);
             }
+        } else {
+            warning.setText("Please fill out all of the above information!");
         }
+    }
+
+    /** helper function to determine if an ID exist in a user database*/
+    private Boolean ifInDatabase(int userID,JSONArray database){
+        for (int i = 0; i < database.length(); i++){
+            if (database.optJSONObject(i).optString("UserID").equals(String.valueOf(userID))){
+                return true;
+            }
+        }
+        return false;
     }
 
     /** helper function to write string data into a txt file*/
