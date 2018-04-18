@@ -55,7 +55,8 @@
             android:screenOrientation="landscape"
         </activity>
         <activity android:name=".DeviceStatisticsActivity" />
-        <activity android:name=".MainDataCollectionSimple"></activity>
+        <activity android:name=".MainDataCollectionSimple" />
+        <activity android:name=".ManageAccountActivity"></activity>
     </application>
 
 </manifest>

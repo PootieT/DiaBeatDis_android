@@ -38,9 +38,29 @@ public class AdminMainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** Called when the user taps the manage account button */
+    public void manageAccount(View view) {
+        Intent intent = new Intent(this, ManageAccountActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the enter patient data button */
+    public void backToMainMenu(View view) {
+        String caller = getIntent().getStringExtra("caller");
+        Log.d("pootie", "caller is " + caller);
+        Class callerClass;
+        try {
+            callerClass = Class.forName(caller);
+            Intent intent = new Intent(this, callerClass);
+            startActivity(intent);
+        } catch (Exception e){
+            Log.e(e.getMessage(),"cannot get caller id");
+        }
+    }
+
     /** Called when the user taps the any button that have not been implemented yet */
     public void futureWarning(View view) {
-        TextView box = findViewById(R.id.textView_data_collection_successful_message);
+        TextView box = findViewById(R.id.textView_admin_main_message);
         box.setText("This feature has not been implemented yet, check it out in our future version!");
     }
 

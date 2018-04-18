@@ -40,7 +40,7 @@
         android:layout_height="40dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:onClick="futureWarning"
+        android:onClick="manageAccount"
         android:text="@string/button_manage_accounts"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBottom_toTopOf="@+id/button33"

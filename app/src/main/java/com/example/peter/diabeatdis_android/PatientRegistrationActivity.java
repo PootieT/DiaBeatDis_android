@@ -144,6 +144,7 @@ public class PatientRegistrationActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(this, MainDataCollectionSimple.class);
                 intent.putExtra("patientID", patientID);
+                intent.putExtra("caller",getIntent().getStringExtra("caller"));
                 startActivity(intent);
             }
         } else {

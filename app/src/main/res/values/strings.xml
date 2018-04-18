@@ -128,4 +128,7 @@
     <string name="check_collection_step_three">Step 3: transfer blood</string>
     <string name="button_done">Done!</string>
     <string name="string_your_id_will_be">Your user ID will be:</string>
+    <string name="string_measure">Measure</string>
+    <string name="button_delete">Delete</string>
+    <string name="delete_account_warning">Enter the ID of the user account you want to delete. Please be ware that this step is irreversible</string>
 </resources>

@@ -135,6 +135,7 @@ public class DataCollectionActivity extends AppCompatActivity {
                 long shortsRead = 0;
                 final TextView textView = findViewById(R.id.textView_data_collection_show_voltage);
                 final TextView textView2 = findViewById(R.id.textView_data_collection_show_voltage2);
+                final TextView textView3 = findViewById(R.id.textView_dummy);
                 mShouldContinue = true;
                 int count = 0;
                 while (mShouldContinue) {
@@ -195,6 +196,11 @@ public class DataCollectionActivity extends AppCompatActivity {
                 textView2.post(new Runnable() {
                     public void run() {
                         textView2.setText("The input voltage calculated: "+rounded);
+                    }
+                });
+                textView3.post(new Runnable() {
+                    public void run() {
+                        textView3.setText("The blood glucose level calculated: 76 mg/dL");
                     }
                 });
             }

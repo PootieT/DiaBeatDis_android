@@ -25,7 +25,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="232dp"
         android:onClick="showVoltage"
-        android:text="@string/button_record_voltage"
+        android:text="@string/string_measure"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/gifTextView_data_collection_step3"

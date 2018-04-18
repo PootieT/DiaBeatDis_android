@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.peter.diabeatdis_android.MainActivity">
+    tools:context="com.example.peter.diabeatdis_android.MainActivity"
+    tools:layout_editor_absoluteY="89dp">
 
     <EditText
         android:id="@+id/editText_log_in_ID"
         android:layout_width="0dp"
         android:layout_height="44dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginStart="150dp"
         android:ems="10"
         android:hint="@string/hint_identifier"
         android:inputType="number"
@@ -25,23 +26,25 @@
         android:id="@+id/editText_log_in_password"
         android:layout_width="0dp"
         android:layout_height="44dp"
-        android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="@string/hint_password"
         android:inputType="textPassword|number"
         app:layout_constraintEnd_toEndOf="@+id/editText_log_in_ID"
         app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/editText_log_in_ID"
         app:layout_constraintTop_toBottomOf="@+id/editText_log_in_ID" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="93dp"
-        android:layout_height="46dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="userSignIn"
         android:text="@string/button_enter"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_log_in_password" />
 
@@ -49,21 +52,33 @@
         android:id="@+id/button3"
         android:layout_width="120dp"
         android:layout_height="42dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="8dp"
         android:onClick="registerNewUser"
         android:text="@string/button_new_user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/button" />
 
     <TextView
         android:id="@+id/textView_log_in_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="@string/string_enter_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="484dp"
+        android:layout_height="260dp"
+        android:adjustViewBounds="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
 </android.support.constraint.ConstraintLayout>

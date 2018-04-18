@@ -204,7 +204,7 @@ public class PatientLookupActivity extends AppCompatActivity {
         if (ifDiabetic){patientRiskList.add("diabetic");}
         if (ifAtRisk){patientRiskList.add("at_risk");}
         if (ifNotAtRisk){patientRiskList.add("not_at_risk");}
-        if (ifUnknown){patientRiskList.add("unknown");}
+        if (ifUnknown){patientRiskList.add("unknown_risk");}
 
         Spinner spinner = findViewById(R.id.spinner_patient_lookup_sex);      // collect patient sex
         String sex = spinner.getSelectedItem().toString().substring(0,1).toUpperCase();
