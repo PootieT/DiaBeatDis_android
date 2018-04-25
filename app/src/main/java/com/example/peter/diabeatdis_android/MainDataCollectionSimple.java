@@ -63,6 +63,11 @@ public class MainDataCollectionSimple extends AppCompatActivity {
         step3.setClickable(false);
     }
 
+    /** return to last activity when pressed back */
+    public void goBack(View view) {
+        super.onBackPressed();
+    }
+
     /** Called when the user taps the log out button */
     public void logOut(View view) {
         Intent intent = new Intent(this, MainActivity.class);

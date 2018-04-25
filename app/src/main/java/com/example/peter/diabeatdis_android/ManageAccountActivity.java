@@ -1,7 +1,10 @@
 package com.example.peter.diabeatdis_android;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +37,11 @@ public class ManageAccountActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** return to last activity when pressed back */
+    public void goBack(View view) {
+        super.onBackPressed();
+    }
+
     /** Called when the user taps the enter patient data button */
     public void backToMainMenu(View view) {
         Intent intent = new Intent(this, AdminMainActivity.class);
@@ -42,9 +50,9 @@ public class ManageAccountActivity extends AppCompatActivity {
 
     /** display the voltage inputted into the tablet with click of button */
     public void deleteAccount(View view) {
-        TextView warningView = findViewById(R.id.textView_manage_account_message);
+        final TextView warningView = findViewById(R.id.textView_manage_account_message);
         EditText editText = findViewById(R.id.editText_manage_account_id);
-        String userID = editText.getText().toString();
+        final String userID = editText.getText().toString();
 
         String FILENAME = "user_accounts.txt";
         JSONArray existingUsers = new JSONArray();                        // read in existing JSON file for user database
@@ -57,14 +65,41 @@ public class ManageAccountActivity extends AppCompatActivity {
         boolean userFound = false;
         for (int i=0;i<existingUsers.length();i++){
             if (existingUsers.optJSONObject(i).optString("UserID").equals(userID)){
-                existingUsers.remove(i);
-                writeToFile(FILENAME, existingUsers.toString());
                 userFound = true;
                 break;
             }
         }
         if (userFound){
-            warningView.setText("This user account has been deleted!");
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Reseting the system will remove all of patient and \nuser data, are you sure you want to do this?")
+                    .setPositiveButton("Reset", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            String FILENAME = "user_accounts.txt";
+                            JSONArray existingUsers = new JSONArray();                        // read in existing JSON file for user database
+                            try {
+                                existingUsers = new JSONArray(readFromFile(FILENAME));
+                            } catch (JSONException e) {
+                                Log.e("convert",e.getMessage());
+                            }
+                            for (int i=0;i<existingUsers.length();i++){
+                                if (existingUsers.optJSONObject(i).optString("UserID").equals(userID)){
+//                                    existingUsers.remove(i);
+//                                    writeToFile(FILENAME, existingUsers.toString());
+                                    warningView.setText("This user account has been deleted!");
+                                    break;
+                                }
+                            }
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                            warningView.setText("");
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.create();
+            builder.show();
         } else {
             warningView.setText("No user of this ID found!");
         }

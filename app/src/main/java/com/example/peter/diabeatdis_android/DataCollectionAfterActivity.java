@@ -43,6 +43,11 @@ public class DataCollectionAfterActivity extends AppCompatActivity {
         }
     }
 
+    /** return to last activity when pressed back */
+    public void goBack(View view) {
+        super.onBackPressed();
+    }
+
     /** Called when the user taps the change patient button */
     public void changePatient(View view) {
         Intent intent = new Intent(this, PatientSelectorActivity.class);

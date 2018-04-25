@@ -7,15 +7,27 @@
     tools:context="com.example.peter.diabeatdis_android.DataCollectionAfterActivity">
 
     <Button
+        android:id="@+id/button_message_doc_back5"
+        android:layout_width="92dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="goBack"
+        android:text="@string/button_back"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/button45"
         android:layout_width="106dp"
         android:layout_height="38dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:onClick="backToMainMenu"
         android:text="@string/button_main_menu"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintEnd_toStartOf="@+id/button56"
+        app:layout_constraintStart_toEndOf="@+id/button_message_doc_back5"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -47,12 +59,12 @@
         android:id="@+id/button57"
         android:layout_width="160dp"
         android:layout_height="38dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginTop="8dp"
         android:onClick="messageDoctor"
         android:text="@string/button_message_to_doctor"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintEnd_toStartOf="@+id/button45"
+        app:layout_constraintEnd_toStartOf="@+id/button56"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -71,12 +83,12 @@
         android:id="@+id/button55"
         android:layout_width="120dp"
         android:layout_height="38dp"
-        android:layout_marginStart="120dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:onClick="changePatient"
         android:text="@string/button_change_patient"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button57"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

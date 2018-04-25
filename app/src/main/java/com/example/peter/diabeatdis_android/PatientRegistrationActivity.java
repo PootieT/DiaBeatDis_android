@@ -46,6 +46,11 @@ public class PatientRegistrationActivity extends AppCompatActivity {
         userIDView.setText(String.valueOf(patientID));
     }
 
+    /** return to last activity when pressed back */
+    public void goBack(View view) {
+        super.onBackPressed();
+    }
+
     /** Called when the user taps the message to doctor button */
     public void messageDoctor(View view) {
         Intent intent = new Intent(this, MessageDoctorActivity.class);

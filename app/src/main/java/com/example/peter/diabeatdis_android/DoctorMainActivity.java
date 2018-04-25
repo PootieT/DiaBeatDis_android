@@ -89,79 +89,12 @@ public class DoctorMainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /** called when user taps download data button */
+    /** new dowload method, go to download data interface when download button is pressed */
     public void downloadData(View view) {
-        // increment sharedPreference user lookup clicks
-        Log.d("Pootie","updating device statistics");
-        String MY_PREFS_NAME = "deviceStatistics";
-        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putInt("downloadDataClicks",getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("downloadDataClicks", 0)+1);
-        Log.d("Pootie","download data clicks:"+getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("downloadDataClicks", 0));
-        editor.apply();
-
-        String FILENAME = "patient_data.txt";
-        JSONArray patientData = new JSONArray();                      // read in patient_data file
-        try {
-            patientData = new JSONArray(readFromFile(FILENAME));
-        } catch (JSONException e) {
-            Log.e("convert", e.getMessage());
-            patientData = new JSONArray();
-        }
-        writeToFile(patientData.toString());
-
-        TextView message = findViewById(R.id.textView_doc_main_message);
-        message.setText("Patient Data has been copied to publicly available data folder, please access it through USB cable.");
+        Intent intent = new Intent(this, DownloadDataActivity.class);
+        intent.putExtra("caller", "com.example.peter.diabeatdis_android.DoctorMainActivity");
+        intent.putExtra("userID", getIntent().getStringExtra("userID"));
+        startActivity(intent);
     }
-
-    /** helper function to read string data into a txt file*/
-    private String readFromFile(String file) {
-
-        String ret = "";
-
-        try {
-            InputStream inputStream = openFileInput(file);
-
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        return ret;
-    }
-
-    /** helper function to write string data into a txt file*/
-    private void writeToFile(String data) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy");
-        Date date = new Date();
-        String formattedDate = formatter.format(date);
-        File patternDirectory = new File(Environment.getExternalStorageDirectory().getAbsolutePath().toString()+"/" +formattedDate +"_data");
-        patternDirectory.mkdirs();
-
-        FileOutputStream outputStream;
-        try {
-            outputStream = new FileOutputStream(new File(patternDirectory.getAbsolutePath().toString()+"/" +formattedDate +"_data"), true); // true will be same as Context.MODE_APPEND
-            outputStream.write(data.getBytes());
-            outputStream.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
 
 }

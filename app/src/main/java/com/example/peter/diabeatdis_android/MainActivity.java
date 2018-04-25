@@ -66,12 +66,15 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText("No Existing user with the ID entered, please register as a new user");   //print no existing user
             } else if (userType.equals("health_worker")){
                 Intent intent = new Intent(this, HealthWorkerMainActivity.class);      //take to healthworker site
+                intent.putExtra("userID", userID);
                 startActivity(intent);
             } else if (userType.equals("doctor")){
                 Intent intent = new Intent(this, DoctorMainActivity.class);      //take to doctor site
+                intent.putExtra("userID", userID);
                 startActivity(intent);
             } else if (userType.equals("admin")){
                 Intent intent = new Intent(this, AdminMainActivity.class);      //take to amin site
+                intent.putExtra("userID", userID);
                 startActivity(intent);
             }
         } else {

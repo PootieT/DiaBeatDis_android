@@ -79,6 +79,11 @@ public class PatientLookupActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** return to last activity when pressed back */
+    public void goBack(View view) {
+        super.onBackPressed();
+    }
+
     /** upon pressing back button, go back to previous activity */
     public void mainMenu(View view) {
         String caller = getIntent().getStringExtra("caller");

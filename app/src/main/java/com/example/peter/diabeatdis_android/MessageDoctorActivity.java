@@ -17,8 +17,8 @@ public class MessageDoctorActivity extends AppCompatActivity {
         Log.d("Pootie", "the caller id is " + getIntent().getStringExtra("caller"));
     }
 
-    /** upon pressing back button, go back to previous activity */
-    public void goBack(View view) {
+    /** upon pressing main menu button, go back to main menu activity */
+    public void mainMenu(View view) {
         String caller = getIntent().getStringExtra("caller");
         Class callerClass;
         try {
@@ -30,6 +30,11 @@ public class MessageDoctorActivity extends AppCompatActivity {
         } catch (Exception e){
             Log.e(e.getMessage(),"cannot get caller id");
         }
+    }
+
+    /** return to last activity when pressed back */
+    public void goBack(View view) {
+        super.onBackPressed();
     }
 
     /** return to main activity when pressed logout */

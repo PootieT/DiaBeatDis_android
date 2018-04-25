@@ -1,9 +1,13 @@
 package com.example.peter.diabeatdis_android;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +27,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 public class AdminMainActivity extends AppCompatActivity {
 
@@ -94,77 +99,46 @@ public class AdminMainActivity extends AppCompatActivity {
 
     /** Called when the user taps the RESET SYSTEM button */
     public void resetSystem(View view) {
-        Log.d("Pootie","wiping patient registry and user account information...");
-        writeToFile("patient_registry.txt","");
-        writeToFile("user_accounts.txt","");
-        Log.d("Pootie","updating device statistics");            // reset sharedPreference
-        String MY_PREFS_NAME = "deviceStatistics";
-        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putInt("recordDataClicks",0);
-        editor.putInt("patientLookupClicks",0);
-        editor.putInt("userLookupClicks",0);
-        editor.putInt("patientSummaryClicks",0);
-        editor.putInt("downloadDataClicks",0);
-//        editor.putInt("messagesSent",0);
-        editor.apply();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete this user account?")
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Log.d("Pootie","wiping patient registry and user account information...");
+                        writeToFile("patient_registry.txt","");
+                        writeToFile("user_accounts.txt","");
+                        Log.d("Pootie","updating device statistics");            // reset sharedPreference
+                        String MY_PREFS_NAME = "deviceStatistics";
+                        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                        editor.putInt("recordDataClicks",0);
+                        editor.putInt("patientLookupClicks",0);
+                        editor.putInt("userLookupClicks",0);
+                        editor.putInt("patientSummaryClicks",0);
+                        editor.putInt("downloadDataClicks",0);
+//                        editor.putInt("messagesSent",0);
+                        editor.apply();
 
-        TextView outPut = findViewById(R.id.textView_admin_main_message);
-        outPut.setText("Device has been reset. Patient and user information and device statistics has been cleaned.");
+                        TextView outPut = findViewById(R.id.textView_admin_main_message);
+                        outPut.setText("Device has been reset. Patient and user information and device statistics has been cleaned.");
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                        TextView outPut = findViewById(R.id.textView_admin_main_message);
+                        outPut.setText(R.string.delete_account_warning);
+                    }
+                });
+        // Create the AlertDialog object and return it
+        builder.create();
+        builder.show();
     }
 
-    /** called when user taps download data button */
+    /** new dowload method, go to download data interface when download button is pressed */
     public void downloadData(View view) {
-        // increment sharedPreference user lookup clicks
-        Log.d("Pootie","updating device statistics");
-        String MY_PREFS_NAME = "deviceStatistics";
-        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putInt("downloadDataClicks",getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("downloadDataClicks", 0)+1);
-        Log.d("Pootie","download data clicks:"+getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).getInt("downloadDataClicks", 0));
-        editor.apply();
-
-        String FILENAME = "patient_data.txt";
-        JSONArray patientData = new JSONArray();                      // read in patient_data file
-        try {
-            patientData = new JSONArray(readFromFile(FILENAME));
-        } catch (JSONException e) {
-            Log.e("convert", e.getMessage());
-            patientData = new JSONArray();
-        }
-        writeToFile(patientData.toString());
-
-        TextView outPut = findViewById(R.id.textView_admin_main_message);
-        outPut.setText("Patient Data has been copied to a USB accessible location.");
-    }
-
-    /** helper function to read string data into a txt file*/
-    private String readFromFile(String file) {
-
-        String ret = "";
-
-        try {
-            InputStream inputStream = openFileInput(file);
-
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        return ret;
+        Intent intent = new Intent(this, DownloadDataActivity.class);
+        intent.putExtra("caller", "com.example.peter.diabeatdis_android.AdminMainActivity");
+        intent.putExtra("userID", getIntent().getStringExtra("userID"));
+        startActivity(intent);
     }
 
     /** helper function to write string data into a txt file*/
@@ -173,25 +147,6 @@ public class AdminMainActivity extends AppCompatActivity {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(file, Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
-    /** helper function to write string data into a txt file*/
-    private void writeToFile(String data) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy");
-        Date date = new Date();
-        String formattedDate = formatter.format(date);
-        File patternDirectory = new File(Environment.getExternalStorageDirectory().getAbsolutePath().toString()+"/" +formattedDate +"_data");
-        patternDirectory.mkdirs();
-
-        FileOutputStream outputStream;
-        try {
-            outputStream = new FileOutputStream(new File(patternDirectory.getAbsolutePath().toString()+"/" +formattedDate +"_data"), true); // true will be same as Context.MODE_APPEND
-            outputStream.write(data.getBytes());
-            outputStream.close();
         }
         catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

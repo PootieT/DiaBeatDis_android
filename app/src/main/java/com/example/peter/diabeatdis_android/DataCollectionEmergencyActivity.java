@@ -21,6 +21,11 @@ public class DataCollectionEmergencyActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** return to last activity when pressed back */
+    public void goBack(View view) {
+        super.onBackPressed();
+    }
+
     /** Called when the user taps the message to doctor button */
     public void messageDoctor(View view) {
         Intent intent = new Intent(this, MessageDoctorActivity.class);

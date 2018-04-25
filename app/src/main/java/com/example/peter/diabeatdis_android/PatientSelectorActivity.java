@@ -48,6 +48,11 @@ public class PatientSelectorActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** return to last activity when pressed back */
+    public void goBack(View view) {
+        super.onBackPressed();
+    }
+
     /** Called when the user taps the enter patient data button */
     public void backToMainMenu(View view) {
         String caller = getIntent().getStringExtra("caller");

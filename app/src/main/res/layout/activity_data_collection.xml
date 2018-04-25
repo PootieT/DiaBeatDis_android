@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context="com.example.peter.diabeatdis_android.DataCollectionActivity">
 
+    <Button
+        android:id="@+id/button_message_doc_back4"
+        android:layout_width="92dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="goBack"
+        android:text="@string/button_back"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView36"
         android:layout_width="wrap_content"
@@ -33,12 +45,12 @@
         android:id="@+id/button70"
         android:layout_width="106dp"
         android:layout_height="38dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:onClick="backToMainMenu"
         android:text="@string/button_main_menu"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintEnd_toStartOf="@+id/button50"
+        app:layout_constraintStart_toEndOf="@+id/button_message_doc_back4"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.example.peter.diabeatdis_android.DeviceSettingActivity">
 
+    <Button
+        android:id="@+id/button_message_doc_back7"
+        android:layout_width="92dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="goBack"
+        android:text="@string/button_back"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <CheckBox
         android:id="@+id/checkBox17"
         style="@android:style/Widget.Material.Light.CompoundButton.CheckBox"
@@ -179,12 +191,12 @@
         android:id="@+id/button42"
         android:layout_width="106dp"
         android:layout_height="38dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:onClick="backToMainMenu"
         android:text="@string/button_main_menu"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintEnd_toStartOf="@+id/button43"
+        app:layout_constraintStart_toEndOf="@+id/button_message_doc_back7"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

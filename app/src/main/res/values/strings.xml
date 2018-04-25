@@ -8,7 +8,7 @@
     <string name="check_admin">Admin</string>
     <string name="check_health_worker">Health Worker</string>
     <string name="hint_password">(Password)</string>
-    <string name="hint_mobile_number">(Mobile Number)</string>
+    <string name="hint_mobile_number">Mobile Number (e.g. XXX-XXX-XXX)</string>
     <string name="string_i_am_a">I am a:</string>
     <string name="string_enter_id">Enter ID:</string>
     <string name="string_enter_password">Enter Password:</string>
@@ -72,10 +72,10 @@
     <string name="string_patient_id">Patient ID:</string>
     <string name="string_name">Name:</string>
     <string name="string_mobile">Mobile:</string>
-    <string name="hint_name">(Name)</string>
-    <string name="hint_location">(Location)</string>
-    <string name="hint_age">(Age)</string>
-    <string name="hint_sex">(Sex)</string>
+    <string name="hint_name">Name (e.g. Andy Zhang)</string>
+    <string name="hint_location">Location (e.g. New Delhi, India)</string>
+    <string name="hint_age">Age (e.g. 25)</string>
+    <string name="hint_sex">Sex (e.g. M)</string>
     <string name="button_cancel">Cancel</string>
     <string name="string_subject">Subject:</string>
     <string name="hint_subject">(Subject)</string>
@@ -131,4 +131,8 @@
     <string name="string_measure">Measure</string>
     <string name="button_delete">Delete</string>
     <string name="delete_account_warning">Enter the ID of the user account you want to delete. Please be ware that this step is irreversible</string>
+    <string name="check_attach_patient_data">Attach Patient Data</string>
+    <string name="string_message_doctor_warning">Check the above box to attach your most recent patient data to the doctor along with the message. If not, please specify the patient ID or relevant information for doctor to identify the patient!</string>
+    <string name="radio_usb_access">USB access</string>
+    <string name="radio_bluetooth">Bluetooth (in future version)</string>
 </resources>

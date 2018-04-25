@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+            android:screenOrientation="landscape" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +23,18 @@
         <activity
             android:name=".UserRegistrationActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".HealthWorkerMainActivity" />
-        <activity android:name=".DoctorMainActivity" />
-        <activity android:name=".AdminMainActivity" />
-        <activity android:name=".PatientSelectorActivity" />
+        <activity
+            android:name=".HealthWorkerMainActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".DoctorMainActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AdminMainActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".PatientSelectorActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".DataEntrySelectorActivity"
             android:screenOrientation="landscape" />
@@ -38,14 +47,24 @@
         <activity
             android:name=".DeviceSettingActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".PatientRegistrationActivity" />
-        <activity android:name=".MessageDoctorActivity" />
+        <activity
+            android:name=".PatientRegistrationActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MessageDoctorActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".DataCollectionActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".DataCollectionAfterActivity" />
-        <activity android:name=".DataCollectionEmergencyActivity" />
-        <activity android:name=".DownloadDataActivity" />
+        <activity
+            android:name=".DataCollectionAfterActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".DataCollectionEmergencyActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".DownloadDataActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".PatientSummaryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,9 +73,15 @@
             </intent-filter>
             android:screenOrientation="landscape"
         </activity>
-        <activity android:name=".DeviceStatisticsActivity" />
-        <activity android:name=".MainDataCollectionSimple" />
-        <activity android:name=".ManageAccountActivity"></activity>
+        <activity
+            android:name=".DeviceStatisticsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MainDataCollectionSimple"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ManageAccountActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
