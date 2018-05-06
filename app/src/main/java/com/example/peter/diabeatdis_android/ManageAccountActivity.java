@@ -71,8 +71,8 @@ public class ManageAccountActivity extends AppCompatActivity {
         }
         if (userFound){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Reseting the system will remove all of patient and \nuser data, are you sure you want to do this?")
-                    .setPositiveButton("Reset", new DialogInterface.OnClickListener() {
+            builder.setMessage("Are you sure you want to delete all of data associated with this account?")
+                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             String FILENAME = "user_accounts.txt";
                             JSONArray existingUsers = new JSONArray();                        // read in existing JSON file for user database
@@ -94,7 +94,7 @@ public class ManageAccountActivity extends AppCompatActivity {
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // User cancelled the dialog
-                            warningView.setText("");
+                            warningView.setText(R.string.delete_account_warning);
                         }
                     });
             // Create the AlertDialog object and return it

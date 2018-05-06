@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -28,6 +29,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -43,6 +45,7 @@ import pl.droidsonroids.gif.GifImageView;
 import pl.droidsonroids.gif.GifTextView;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.max;
 
 public class MainDataCollectionSimple extends AppCompatActivity {
 
@@ -213,23 +216,39 @@ public class MainDataCollectionSimple extends AppCompatActivity {
         }
         writeToFile(FILENAME, patientRecord.toString());
 
-        if (reading < EMERGENCY_BLOOD_GLUCOSE) {
-            Intent intent = new Intent(this, DataCollectionAfterActivity.class);
-            intent.putExtra("PatientID",patientID)
-                    .putExtra("caller",getIntent().getStringExtra("caller"));
-            startActivity(intent);
+        RadioButton less = findViewById(R.id.radioButton_data_collection_simple_less_hour);
+        RadioButton more = findViewById(R.id.radioButton_data_collection_simple_more_hour);
+        TextView message = findViewById(R.id.textView_data_collection_simple_warning2);
+
+        if ((!less.isChecked() && !more.isChecked()) || (less.isChecked() && more.isChecked())) {
+            message.setText("Please select (only) one choice\n above about patient's last food intake!");
         } else {
-            Intent intent = new Intent(this, DataCollectionEmergencyActivity.class);
-            intent.putExtra("PatientID",patientID)
-                    .putExtra("caller",getIntent().getStringExtra("caller"));
-            startActivity(intent);
+            if (reading < EMERGENCY_BLOOD_GLUCOSE) {
+                Intent intent = new Intent(this, DataCollectionAfterActivity.class);
+                intent.putExtra("PatientID", patientID)
+                      .putExtra("caller", getIntent().getStringExtra("caller"))
+                      .putExtra("reading", reading)
+                      .putExtra("ifFasting", more.isChecked());
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, DataCollectionEmergencyActivity.class);
+                intent.putExtra("PatientID", patientID)
+                      .putExtra("caller", getIntent().getStringExtra("caller"))
+                      .putExtra("reading", reading)
+                      .putExtra("ifFasting", more.isChecked());
+                startActivity(intent);
+            }
         }
     }
 
     /** this function converts one voltage reading into blood glucose level. This is a dummy
      * function because we technically need multiple wavelength */
     private double convertOneVoltage(double minVoltage, double maxVoltage) {
-        return 0.5047 + 0.0574*maxVoltage + 0.0260*minVoltage;
+        // convert audio input unit into voltage (peak to peak)
+        double actualVoltage = 0.5047 + 0.0574*maxVoltage + 0.0260*minVoltage;
+        // convert voltage (peak to peak) to glucose level under hexokinase
+        double glucoseLevel = max(actualVoltage*-0.4528 + 421.22 , 0.0);
+        return glucoseLevel;
     }
 
     /** this function reads in the voltage signal from the audio jack and display the data as a
@@ -310,7 +329,7 @@ public class MainDataCollectionSimple extends AppCompatActivity {
                 double min = 0.0;
                 for (int i = 0;i<audioBuffer.length; i++){
                     sum += audioBuffer[i];
-                    max = Math.max(max, audioBuffer[i]);
+                    max = max(max, audioBuffer[i]);
                     min = Math.min(min, audioBuffer[i]);
                 }
 

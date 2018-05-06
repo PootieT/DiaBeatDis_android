@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -62,14 +63,18 @@ public class PatientLookupActivity extends AppCompatActivity {
         tv5.setText(" Risk Category ");
         tv5.setTextColor(Color.BLACK);
         row0.addView(tv5);
-        TextView tv6 = new TextView(this);
-        tv6.setText(" Last Tested ");
-        tv6.setTextColor(Color.BLACK);
-        row0.addView(tv6);
+//        TextView tv6 = new TextView(this);
+//        tv6.setText(" Last Tested ");
+//        tv6.setTextColor(Color.BLACK);
+//        row0.addView(tv6);
         TextView tv7 = new TextView(this);
         tv7.setText(" Contact Info ");
         tv7.setTextColor(Color.BLACK);
         row0.addView(tv7);
+        TextView tv8 = new TextView(this);
+        tv8.setText(" Patient Data ");
+        tv8.setTextColor(Color.BLACK);
+        row0.addView(tv8);
         stk.addView(row0);
     }
 
@@ -118,52 +123,74 @@ public class PatientLookupActivity extends AppCompatActivity {
     private void createTable(JSONArray searchResult) {
         TableLayout stk = findViewById(R.id.TableLayout_patient_lookup_table);
         cleanTable(stk);
-
+        final JSONArray finalSearchResult = searchResult;
         //create table
         Log.d("Pootie", "creating individual rows of table");
         for (int i = 0; i < searchResult.length(); i++) {
             Log.d("Pootie", "creating row number "+ i);
             TableRow tbrow = new TableRow(this);
+            TextView t0v = new TextView(this);
+            t0v.setText(searchResult.optJSONObject(i).optString("PatientID"));
+            t0v.setTextColor(Color.BLACK);
+            t0v.setGravity(Gravity.CENTER);
+            tbrow.addView(t0v);
             TextView t1v = new TextView(this);
-            t1v.setText(searchResult.optJSONObject(i).optString("PatientID"));
+            t1v.setText(searchResult.optJSONObject(i).optString("Name"));
             t1v.setTextColor(Color.BLACK);
             t1v.setGravity(Gravity.CENTER);
             tbrow.addView(t1v);
             TextView t2v = new TextView(this);
-            t2v.setText(searchResult.optJSONObject(i).optString("Name"));
+            t2v.setText(searchResult.optJSONObject(i).optString("Age"));
             t2v.setTextColor(Color.BLACK);
             t2v.setGravity(Gravity.CENTER);
             tbrow.addView(t2v);
             TextView t3v = new TextView(this);
-            t3v.setText(searchResult.optJSONObject(i).optString("Age"));
+            t3v.setText(searchResult.optJSONObject(i).optString("Sex"));
             t3v.setTextColor(Color.BLACK);
             t3v.setGravity(Gravity.CENTER);
             tbrow.addView(t3v);
             TextView t4v = new TextView(this);
-            t4v.setText(searchResult.optJSONObject(i).optString("Sex"));
+            t4v.setText(searchResult.optJSONObject(i).optString("Location"));
             t4v.setTextColor(Color.BLACK);
             t4v.setGravity(Gravity.CENTER);
             tbrow.addView(t4v);
             TextView t5v = new TextView(this);
-            t5v.setText(searchResult.optJSONObject(i).optString("Location"));
+            t5v.setText(searchResult.optJSONObject(i).optString("RiskCategory"));
             t5v.setTextColor(Color.BLACK);
             t5v.setGravity(Gravity.CENTER);
             tbrow.addView(t5v);
-            TextView t6v = new TextView(this);
-            t6v.setText(searchResult.optJSONObject(i).optString("RiskCategory"));
-            t6v.setTextColor(Color.BLACK);
-            t6v.setGravity(Gravity.CENTER);
-            tbrow.addView(t6v);
+//            TextView t6v = new TextView(this);
+//            t6v.setText(searchResult.optJSONObject(i).optString("LastTested"));
+//            t6v.setTextColor(Color.BLACK);
+//            t6v.setGravity(Gravity.CENTER);
+//            tbrow.addView(t6v);
             TextView t7v = new TextView(this);
-            t7v.setText(searchResult.optJSONObject(i).optString("LastTested"));
+            t7v.setText(searchResult.optJSONObject(i).optString("Mobile"));
             t7v.setTextColor(Color.BLACK);
             t7v.setGravity(Gravity.CENTER);
             tbrow.addView(t7v);
-            TextView t8v = new TextView(this);
-            t8v.setText(searchResult.optJSONObject(i).optString("Mobile"));
-            t8v.setTextColor(Color.BLACK);
-            t8v.setGravity(Gravity.CENTER);
-            tbrow.addView(t8v);
+            // add button to connect to patient summary
+            final int index = i;
+            Button btn = new Button(this);
+            btn.setText("View Patient Data");
+            btn.setBackgroundColor(Color.RED);
+            btn.setWidth(200);
+//            btn.setHeight(200);
+            btn.setId(i);
+            btn.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    System.out.println("v.getid is:- " + v.getId());
+                    Intent intent = new Intent(v.getContext(), PatientSummaryActivity.class);
+                    intent.putExtra("PatientID", finalSearchResult.optJSONObject(index).optString("PatientID"))
+                          .putExtra("caller", getIntent().getStringExtra("caller"));
+                    startActivity(intent);
+                }
+            });
+            tbrow.addView(btn);
+            tbrow.setMinimumHeight(100);
             stk.addView(tbrow);
         }
     }

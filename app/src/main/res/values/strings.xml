@@ -135,4 +135,7 @@
     <string name="string_message_doctor_warning">Check the above box to attach your most recent patient data to the doctor along with the message. If not, please specify the patient ID or relevant information for doctor to identify the patient!</string>
     <string name="radio_usb_access">USB access</string>
     <string name="radio_bluetooth">Bluetooth (in future version)</string>
+    <string name="string_last_time_ingestion">When is the last time the patient had any food (liquid other than water counts)?</string>
+    <string name="radio_less_2_hr"> in less than 2 hours</string>
+    <string name="radio_larger_2_hr">more than 2 hours ago</string>
 </resources>

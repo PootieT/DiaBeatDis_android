@@ -3,6 +3,7 @@ package com.example.peter.diabeatdis_android;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +19,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -44,16 +47,38 @@ public class PatientSummaryActivity extends AppCompatActivity {
 
     /** this function is called when back to patient lookup button is clicked*/
     public void backToPatientLookup(View view) {
-        Intent intent = new Intent(this, PatientSelectorActivity.class);
-        intent.putExtra("purpose","patientSummary")
-              .putExtra("caller","com.example.peter.diabeatdis_android.DoctorMainActivity");
-        startActivity(intent);
+        super.onBackPressed();
     }
 
     /** Called when the user taps the log out button */
     public void logOut(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    /** Called when the user taps the download data button */
+    public void downloadData(View view) {
+        String patientID = getIntent().getStringExtra("PatientID");
+        String FILENAME = "patient_registry.txt";
+
+        JSONArray patientRecord = new JSONArray();                      // read in patient_data file
+        try {
+            patientRecord = new JSONArray(readFromFile(FILENAME));
+        } catch (JSONException e) {
+            Log.e("convert", e.getMessage());
+            patientRecord = new JSONArray();
+        }
+        JSONArray oneRecord = new JSONArray();
+        for (int i = 0; i < patientRecord.length(); i++) {
+            if (patientRecord.optJSONObject(i).optString("PatientID").equals(patientID)) {
+                oneRecord.put(patientRecord.optJSONObject(i));
+                writeToFile(oneRecord.toString());
+                break;
+            }
+        }
+
+        TextView message = findViewById(R.id.textView_patient_summary_message);
+        message.setText("Patient data successfully downloaded. Please access it through USB in our publically accessible data folder");
     }
 
     /** Called when the user taps the enter patient data button */
@@ -194,11 +219,18 @@ public class PatientSummaryActivity extends AppCompatActivity {
     }
 
     /** helper function to write string data into a txt file*/
-    private void writeToFile(String file, String data) {
+    private void writeToFile(String data) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy");
+        Date date = new Date();
+        String formattedDate = formatter.format(date);
+        File patternDirectory = new File(Environment.getExternalStorageDirectory().getAbsolutePath().toString()+"/" +formattedDate +"_data");
+        patternDirectory.mkdirs();
+
+        FileOutputStream outputStream;
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(file, Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
+            outputStream = new FileOutputStream(new File(patternDirectory.getAbsolutePath().toString()+"/" +formattedDate +"_data"), true); // true will be same as Context.MODE_APPEND
+            outputStream.write(data.getBytes());
+            outputStream.close();
         }
         catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

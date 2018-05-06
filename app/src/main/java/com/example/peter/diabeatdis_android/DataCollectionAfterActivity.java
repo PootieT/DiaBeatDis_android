@@ -7,13 +7,78 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public class DataCollectionAfterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Double DIABETIC_FASTING_THRESHOLD = 130.0;
+        Double DIABETIC_NON_FASTING_THRESHOLD = 180.0;
+        Double NORMAL_FASTING_THRESHOLD = 110.0;
+        Double NORMAL_NON_FASTING_THRESHOLD = 140.0;
+        String FILENAME = "patient_data.txt";
+
+        TextView message = findViewById(R.id.textView_data_collection_successful_message);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collection_after);
         Log.d("Pootie", "the caller id is " + getIntent().getStringExtra("caller"));
+
+        Double reading = getIntent().getDoubleExtra("reading", 0);
+        boolean ifFasting = getIntent().getBooleanExtra("ifFasting", true);
+        String patientID = getIntent().getStringExtra("PatientID");
+
+        JSONArray patientRecord = new JSONArray();                      // read in patient_data file
+        try {
+            patientRecord = new JSONArray(readFromFile(FILENAME));
+        } catch (JSONException e) {
+            Log.e("convert", e.getMessage());
+            patientRecord = new JSONArray();
+        }
+
+        String riskCategory = "no_risk";
+        for (int i = 0; i<patientRecord.length(); i++){
+            if (patientRecord.optJSONObject(i).optString("PatientID").equals(patientID)){
+                riskCategory = patientRecord.optJSONObject(i).optString("RiskCategory");
+            }
+        }
+
+        if (riskCategory.equals("diabetic") || riskCategory.equals("at_risk")){
+            if (ifFasting) {
+                if (reading < DIABETIC_FASTING_THRESHOLD) {
+                    message.setText("Glucose collection successful! Patient blood glucose is in normal range");
+                } else {
+                    message.setText("Glucose collection successful! Patient blood glucose is high, consider taking blood glucose treatment.");
+                }
+            } else {
+                if (reading < DIABETIC_NON_FASTING_THRESHOLD) {
+                    message.setText("Glucose collection successful! Patient blood glucose is in normal range");
+                } else {
+                    message.setText("Glucose collection successful! Patient blood glucose is high, consider taking blood glucose treatment.");
+                }
+            }
+        } else if (riskCategory.equals("no_risk") || riskCategory.equals("unknown_risk")) {
+            if (ifFasting) {
+                if (reading < NORMAL_FASTING_THRESHOLD) {
+                    message.setText("Glucose collection successful! Patient blood glucose is in normal range");
+                } else {
+                    message.setText("Glucose collection successful! Patient blood glucose is high, consider following up to see if he/she is diabetic or at risk.");
+                }
+            } else {
+                if (reading < NORMAL_NON_FASTING_THRESHOLD) {
+                    message.setText("Glucose collection successful! Patient blood glucose is in normal range");
+                } else {
+                    message.setText("Glucose collection successful! Patient blood glucose is high, consider following up to see if he/she is diabetic or at risk.");
+                }
+            }
+        }
     }
 
     /** Called when the user taps the log out button */
@@ -67,5 +132,36 @@ public class DataCollectionAfterActivity extends AppCompatActivity {
     public void futureWarning(View view) {
         TextView box = findViewById(R.id.textView_admin_main_message);
         box.setText("This feature has not been implemented yet, check it out in our future version!");
+    }
+
+    /** helper function to read string data into a txt file*/
+    private String readFromFile(String file) {
+
+        String ret = "";
+
+        try {
+            InputStream inputStream = openFileInput(file);
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
+
+        return ret;
     }
 }

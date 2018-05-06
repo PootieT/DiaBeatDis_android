@@ -100,8 +100,8 @@ public class AdminMainActivity extends AppCompatActivity {
     /** Called when the user taps the RESET SYSTEM button */
     public void resetSystem(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to delete this user account?")
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        builder.setMessage("Resetting the system will delete all user accounts and patient data.\nAre you sure you want to do this?")
+                .setPositiveButton("Reset", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Log.d("Pootie","wiping patient registry and user account information...");
                         writeToFile("patient_registry.txt","");
